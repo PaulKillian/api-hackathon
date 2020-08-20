@@ -1,28 +1,23 @@
 class BeefIngredientList {
-	constructor(chooseSection, listH1, headerElement) {
-		this.chooseSection = chooseSection
-		this.listH1 = listH1
-		this.headerElement = headerElement
-		// this.getFrenchDipIngredients = this.getFrenchDipIngredients.bind(this)
-		// this.getFrenchDipIngredientsSuccess = this.getFrenchDipIngredientsSuccess.bind(this)
-		// this.getTacoIngredients = this.getTacoIngredients.bind(this)
-		// this.getTacoIngredientsSuccess = this.getTacoIngredientsSuccess.bind(this)
-		// this.getBarbacoaIngredients = this.getBarbacoaIngredients.bind(this)
-		// this.getBarbacoaIngredientsSuccess = this.getBarbacoaIngredientsSuccess.bind(this)
-		// this.getNutrition = this.getNutrition.bind(this)
-		// this.getNutritionSuccess = this.getNutritionSuccess.bind(this)
+	constructor() {
+		this.getFrenchDipIngredients = this.getFrenchDipIngredients.bind(this)
+		this.getFrenchDipIngredientsSuccess = this.getFrenchDipIngredientsSuccess.bind(this)
+		this.getTacoIngredients = this.getTacoIngredients.bind(this)
+		this.getTacoIngredientsSuccess = this.getTacoIngredientsSuccess.bind(this)
+		this.getBarbacoaIngredients = this.getBarbacoaIngredients.bind(this)
+		this.getBarbacoaIngredientsSuccess = this.getBarbacoaIngredientsSuccess.bind(this)
 
-		// const firstImg = document.getElementById('firstImage')
-		// const secondImg = document.getElementById('secondImage')
-		// const thirdImg = document.getElementById('thirdImage')
-		// const button = document.querySelector('button')
-		// firstImg.addEventListener('click', this.getFrenchDipIngredients)
-		// secondImg.addEventListener('click', this.getTacoIngredients)
-		// thirdImg.addEventListener('click', this.getBarbacoaIngredients)
-		// button.addEventListener('click', this.backToHomePage)
+		const firstImg = document.getElementById('firstImage')
+		const secondImg = document.getElementById('secondImage')
+		const thirdImg = document.getElementById('thirdImage')
+		const button = document.querySelector('button')
+		firstImg.addEventListener('click', this.getFrenchDipIngredients)
+		secondImg.addEventListener('click', this.getTacoIngredients)
+		thirdImg.addEventListener('click', this.getBarbacoaIngredients)
+		button.addEventListener('click', this.backToHomePage)
 	}
 
-	ingAndNut() {
+	ingAndNut (){
 		const header = document.getElementById('header')
 		const leftDiv = document.createElement('div')
 		leftDiv.classList.add('col', 'border-right')
@@ -39,145 +34,109 @@ class BeefIngredientList {
 		header.appendChild(rightDiv)
 		rightDiv.appendChild(rh1)
 
-		rh1.addEventListener('click', this.getNutrition)
 	}
 
-	// getFrenchDipIngredients(event) {
-	// 	$.ajax({
-	// 		type: "GET",
-	// 		url: "https://api.spoonacular.com/recipes/findByIngredients?ingredients=beef=1&apiKey=6f594a794c9e4c2b89c66311b4b9c999",
-	// 		contentType: "application/json",
-	// 		dataType: "json",
+	getFrenchDipIngredients(event) {
+		$.ajax({
+			type: "GET",
+			url: "https://api.spoonacular.com/recipes/findByIngredients?ingredients=beef=1&apiKey=6f594a794c9e4c2b89c66311b4b9c999",
+			contentType: "application/json",
+			dataType: "json",
 
-	// 		error: error => console.log(error),
-	// 		success: data => this.getFrenchDipIngredientsSuccess(data)
-	// 	})
-	// }
+			error: error => console.log(error),
+			success: data => this.getFrenchDipIngredientsSuccess(data)
+		})
+	}
 
-	// getFrenchDipIngredientsSuccess(data) {
-	// 	const h2b = document.querySelector('h2')
-	// 	h2b.textContent = "Here Are Your Ingredients!"
-	// 	const mainb = document.querySelector('main')
-	// 	mainb.innerHTML = " "
-	// 	const UIngredients = data[1].usedIngredients
-	// 	const MIngredients = data[1].missedIngredients
-	// 	const ul = document.createElement('ul')
-	// 	mainb.appendChild(ul)
-	// 	for (let i = 0; i < UIngredients.length; i++) {
-	// 		const li = document.createElement('li')
-	// 		li.textContent = UIngredients[i].original
-	// 		ul.appendChild(li)
-	// 	}
-	// 	for (let x = 0; x < MIngredients.length; x++) {
-	// 		const li = document.createElement('li')
-	// 		li.textContent = MIngredients[x].original
-	// 		ul.appendChild(li)
-	// 	}
-	// 	this.ingAndNut()
-	// }
-	// 	// const nutrientIngUI = data[1].usedIngredients
-	// 	// const nutrientIngMI = data[1].missedIngredients
+	getFrenchDipIngredientsSuccess(data) {
+		const h2b = document.querySelector('h2')
+		h2b.textContent = "Here Are Your Ingredients!"
+		const mainb = document.querySelector('main')
+		mainb.innerHTML = " "
+		const UIngredients = data[1].usedIngredients
+		const MIngredients = data[1].missedIngredients
+		const ul = document.createElement('ul')
+		mainb.appendChild(ul)
+		for (let i = 0; i < UIngredients.length; i++) {
+			const li = document.createElement('li')
+			li.textContent = UIngredients[i].original
+			ul.appendChild(li)
+		}
+		for (let x = 0; x < MIngredients.length; x++) {
+			const li = document.createElement('li')
+			li.textContent = MIngredients[x].original
+			ul.appendChild(li)
+		}
+		this.ingAndNut()
+	}
 
-	// 	// for (let ui = 0; ui < nutrientIngUI.length; ui++) {
-	// 	// 	const nNameIngUI = nutrientIngUI[ui].name
-	// 	// }
-	// 	// for (let mi = 0; mi < nutrientIngMI.length; mi++) {
-	// 	// 	const nNameIngMI = nutrientIngMI[mi].name
-	// 	// }
-  // getNutrition() {
-	// 	$.ajax({
-	// 		type: "GET",
-	// 		url: "https://trackapi.nutritionix.com/v2/search/instant?query=french dip",
-	// 		contentType: "application/json",
-	// 		dataType: "json",
-	// 		headers: {
-	// 			"x-app-id": "f21054df",
-	// 			"x-app-key": "942d221bb8085822d01d5dbf709b8716"
-	// 		},
+	getTacoIngredients(event) {
+		$.ajax({
+			type: "GET",
+			url: "https://api.spoonacular.com/recipes/findByIngredients?ingredients=beef=1&apiKey=6f594a794c9e4c2b89c66311b4b9c999",
+			contentType: "application/json",
+			dataType: "json",
 
-	// 		error: error => console.log(error),
-	// 		success: data => this.getNutritionSuccess(data)
-	// 	})
-	// }
+			error: error => console.log(error),
+			success: data => this.getTacoIngredientsSuccess(data)
+		})
+	}
 
-	// getNutritionSuccess(data) {
-	// 	const section = document.getElementById('choose')
-	// 	section.innerText = " "
-	// 	const calories = data.branded[6].nf_calories
-	// 	section.textContent = `Calories: ${calories}`
-	// 	const main = document.querySelector('main')
-	// 	main.innerHTML = " "
-	// 	const button = document.createElement('button')
-	// 	const newNutriton = new Nutrition()
-	// }
+	getTacoIngredientsSuccess(data) {
+		const h2b = document.querySelector('h2')
+		h2b.textContent = "Here Are Your Ingredients!"
+		const mainb = document.querySelector('main')
+		mainb.innerHTML = " "
+		const UIngredients = data[6].usedIngredients
+		const MIngredients = data[6].missedIngredients
+		const ul = document.createElement('ul')
+		mainb.appendChild(ul)
+		for (let i = 0; i < UIngredients.length; i++) {
+			const li = document.createElement('li')
+			li.textContent = UIngredients[i].original
+			ul.appendChild(li)
+		}
+		for (let x = 0; x < MIngredients.length; x++) {
+			const li = document.createElement('li')
+			li.textContent = MIngredients[x].original
+			ul.appendChild(li)
+		}
+		this.ingAndNut()
+	}
 
-	// getTacoIngredients(event) {
-	// 	$.ajax({
-	// 		type: "GET",
-	// 		url: "https://api.spoonacular.com/recipes/findByIngredients?ingredients=beef=1&apiKey=6f594a794c9e4c2b89c66311b4b9c999",
-	// 		contentType: "application/json",
-	// 		dataType: "json",
+	getBarbacoaIngredients(event) {
+		$.ajax({
+			type: "GET",
+			url: "https://api.spoonacular.com/recipes/findByIngredients?ingredients=beef=1&apiKey=6f594a794c9e4c2b89c66311b4b9c999",
+			contentType: "application/json",
+			dataType: "json",
 
-	// 		error: error => console.log(error),
-	// 		success: data => this.getTacoIngredientsSuccess(data)
-	// 	})
-	// }
+			error: error => console.log(error),
+			success: data => this.getBarbacoaIngredientsSuccess(data)
+		})
+	}
 
-	// getTacoIngredientsSuccess(data) {
-	// 	const h2b = document.querySelector('h2')
-	// 	h2b.textContent = "Here Are Your Ingredients!"
-	// 	const mainb = document.querySelector('main')
-	// 	mainb.innerHTML = " "
-	// 	const UIngredients = data[6].usedIngredients
-	// 	const MIngredients = data[6].missedIngredients
-	// 	const ul = document.createElement('ul')
-	// 	mainb.appendChild(ul)
-	// 	for (let i = 0; i < UIngredients.length; i++) {
-	// 		const li = document.createElement('li')
-	// 		li.textContent = UIngredients[i].original
-	// 		ul.appendChild(li)
-	// 	}
-	// 	for (let x = 0; x < MIngredients.length; x++) {
-	// 		const li = document.createElement('li')
-	// 		li.textContent = MIngredients[x].original
-	// 		ul.appendChild(li)
-	// 	}
-	// 	this.ingAndNut()
-	// }
-
-	// getBarbacoaIngredients(event) {
-	// 	$.ajax({
-	// 		type: "GET",
-	// 		url: "https://api.spoonacular.com/recipes/findByIngredients?ingredients=beef=1&apiKey=6f594a794c9e4c2b89c66311b4b9c999",
-	// 		contentType: "application/json",
-	// 		dataType: "json",
-
-	// 		error: error => console.log(error),
-	// 		success: data => this.getBarbacoaIngredientsSuccess(data)
-	// 	})
-	// }
-
-	// getBarbacoaIngredientsSuccess(data) {
-	// 	const h2b = document.querySelector('h2')
-	// 	h2b.textContent = "Here Are Your Ingredients!"
-	// 	const mainb = document.querySelector('main')
-	// 	mainb.innerHTML = " "
-	// 	const UIngredients = data[4].usedIngredients
-	// 	const MIngredients = data[4].missedIngredients
-	// 	const ul = document.createElement('ul')
-	// 	mainb.appendChild(ul)
-	// 	for (let i = 0; i < UIngredients.length; i++) {
-	// 		const li = document.createElement('li')
-	// 		li.textContent = UIngredients[i].original
-	// 		ul.appendChild(li)
-	// 	}
-	// 	for (let x = 0; x < MIngredients.length; x++) {
-	// 		const li = document.createElement('li')
-	// 		li.textContent = MIngredients[x].original
-	// 		ul.appendChild(li)
-	// 	}
-	// 	this.ingAndNut()
-	// }
+	getBarbacoaIngredientsSuccess(data) {
+		const h2b = document.querySelector('h2')
+		h2b.textContent = "Here Are Your Ingredients!"
+		const mainb = document.querySelector('main')
+		mainb.innerHTML = " "
+		const UIngredients = data[4].usedIngredients
+		const MIngredients = data[4].missedIngredients
+		const ul = document.createElement('ul')
+		mainb.appendChild(ul)
+		for (let i = 0; i < UIngredients.length; i++) {
+			const li = document.createElement('li')
+			li.textContent = UIngredients[i].original
+			ul.appendChild(li)
+		}
+		for (let x = 0; x < MIngredients.length; x++) {
+			const li = document.createElement('li')
+			li.textContent = MIngredients[x].original
+			ul.appendChild(li)
+		}
+		this.ingAndNut()
+	}
 
 	backToHomePage() {
 		const mainb = document.querySelector('main')
