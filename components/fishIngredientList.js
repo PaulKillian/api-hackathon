@@ -1,7 +1,7 @@
 class FishIngredientList {
 	constructor() {
-		this.getEndlessShrimpIngredients = this.getEndlessShrimpIngredients.bind(this)
-		this.getEndlessShrimpIngredientsSuccess = this.getEndlessShrimpIngredientsSuccess.bind(this)
+		this.getCrabCrescentsIngredients = this.getCrabCrescentsIngredients.bind(this)
+		this.getCrabCrescentsIngredientsSuccess = this.getCrabCrescentsIngredientsSuccess.bind(this)
 		this.getCajunCatfishIngredients = this.getCajunCatfishIngredients.bind(this)
 		this.getCajunCatfishIngredientsSuccess = this.getCajunCatfishIngredients.bind(this)
 		this.getGrilledMainIngredients = this.getGrilledMainIngredients.bind(this)
@@ -10,12 +10,12 @@ class FishIngredientList {
 		const firstImg = document.getElementById('firstImage')
 		const secondImg = document.getElementById('secondImage')
 		const thirdImg = document.getElementById('thirdImage')
-		firstImg.addEventListener('click', this.getEndlessShrimpIngredients)
+		firstImg.addEventListener('click', this.getCrabCrescentsIngredients)
 		secondImg.addEventListener('click', this.getCajunCatfishIngredients)
 		thirdImg.addEventListener('click', this.getGrilledMainIngredients)
 	}
 
-	getEndlessShrimpIngredients(event) {
+	getCrabCrescentsIngredients(event) {
 		$.ajax({
 			type: "GET",
 			url: "https://api.spoonacular.com/recipes/findByIngredients?ingredients=fish=1&apiKey=6f594a794c9e4c2b89c66311b4b9c999",
@@ -23,17 +23,17 @@ class FishIngredientList {
 			dataType: "json",
 
 			error: error => console.log(error),
-			success: data => this.getEndlessShrimpIngredientsSuccess(data)
+			success: data => this.getCrabCrescentsIngredientsSuccess(data)
 		})
 	}
 
-	getEndlessShrimpIngredientsSuccess(data) {
+	getCrabCrescentsIngredientsSuccess(data) {
 		const h2b = document.querySelector('h2')
 		h2b.textContent = "Here Are Your Ingredients!"
 		const mainb = document.querySelector('main')
 		mainb.innerHTML = " "
-		const UIngredients = data[1].usedIngredients
-		const MIngredients = data[1].missedIngredients
+		const UIngredients = data[8].usedIngredients
+		const MIngredients = data[8].missedIngredients
 		const ul = document.createElement('ul')
 		mainb.appendChild(ul)
 		for (let i = 0; i < UIngredients.length; i++) {
@@ -46,6 +46,7 @@ class FishIngredientList {
 			li.textContent = MIngredients[x].original
 			ul.appendChild(li)
 		}
+
 	}
 
 	getCajunCatfishIngredients(event) {

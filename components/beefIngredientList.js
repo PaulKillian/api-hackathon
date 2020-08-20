@@ -6,6 +6,8 @@ class BeefIngredientList {
 		this.getTacoIngredientsSuccess = this.getTacoIngredientsSuccess.bind(this)
 		this.getBarbacoaIngredients = this.getBarbacoaIngredients.bind(this)
 		this.getBarbacoaIngredientsSuccess = this.getBarbacoaIngredientsSuccess.bind(this)
+		this.getNutrition = this.getNutrition.bind(this)
+		this.getNutritionSuccess = this.getNutritionSuccess.bind(this)
 
 		const firstImg = document.getElementById('firstImage')
 		const secondImg = document.getElementById('secondImage')
@@ -17,7 +19,7 @@ class BeefIngredientList {
 		button.addEventListener('click', this.backToHomePage)
 	}
 
-	ingAndNut (){
+	ingAndNut() {
 		const header = document.getElementById('header')
 		const leftDiv = document.createElement('div')
 		leftDiv.classList.add('col', 'border-right')
@@ -34,6 +36,7 @@ class BeefIngredientList {
 		header.appendChild(rightDiv)
 		rightDiv.appendChild(rh1)
 
+		rh1.addEventListener('click', this.getNutrition)
 	}
 
 	getFrenchDipIngredients(event) {
@@ -68,6 +71,41 @@ class BeefIngredientList {
 			ul.appendChild(li)
 		}
 		this.ingAndNut()
+	}
+		// const nutrientIngUI = data[1].usedIngredients
+		// const nutrientIngMI = data[1].missedIngredients
+
+		// for (let ui = 0; ui < nutrientIngUI.length; ui++) {
+		// 	const nNameIngUI = nutrientIngUI[ui].name
+		// }
+		// for (let mi = 0; mi < nutrientIngMI.length; mi++) {
+		// 	const nNameIngMI = nutrientIngMI[mi].name
+		// }
+	getNutrition() {
+		$.ajax({
+			type: "GET",
+			url: "https://trackapi.nutritionix.com/v2/search/instant?query=french dip",
+			contentType: "application/json",
+			dataType: "json",
+			headers: {
+				"x-app-id": "f21054df",
+				"x-app-key": "942d221bb8085822d01d5dbf709b8716"
+			},
+
+			error: error => console.log(error),
+			success: data => this.getNutritionSuccess(data)
+		})
+	}
+
+	getNutritionSuccess(data) {
+		const section = document.getElementById('choose')
+		section.innerText = " "
+		const calories = data.branded[6].nf_calories
+		section.textContent = `Calories: ${calories}`
+		const main = document.querySelector('main')
+		main.innerHTML = " "
+		const button = document.createElement('button')
+		const newNutriton = new Nutrition()
 	}
 
 	getTacoIngredients(event) {
