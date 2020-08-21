@@ -95,9 +95,9 @@ function renderRecipeIngredientPage(data) {
 	main.classList.add('d-flex')
 	h3R.textContent = pageInstructions2
 	h3R.classList.add('pt-2')
-	h2I.textContent = "Here is your recipe!"
+	h2I.textContent = "Here is your recipe"
 	h2I.classList.add('shadow', 'w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
-	h2R.textContent = "Here are your ingredients!"
+	h2R.textContent = "Here are your ingredients"
 	h2R.classList.add('shadow', 'pt-1')
 	ul.classList.add('list-group', 'w-75', 'shadow', 'pt-2')
 	ul.appendChild(h2R)

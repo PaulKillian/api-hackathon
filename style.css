@@ -7,6 +7,13 @@ body {
 	background-repeat: no-repeat;
 }
 
+li,
+h2,
+h1,
+h3 {
+	font-family: 'Open Sans', sans-serif;
+}
+
 .hidden {
 	display: none
 }
