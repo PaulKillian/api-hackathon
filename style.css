@@ -2,6 +2,9 @@ body {
 	font-family: 'Girassol', cursive;
 	background-color: black;
 	height: 100%;
+	background-image: url(images/FYATtm.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
 .hidden {
@@ -20,4 +23,8 @@ body {
 
 .cursor {
 	cursor: pointer;
+}
+
+.background {
+	opacity: 2;
 }
