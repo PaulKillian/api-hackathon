@@ -5,14 +5,15 @@ const h2R = document.getElementById('h2R')
 const section = document.querySelector('section')
 const imgDiv = document.getElementById('imgDiv')
 const divList = document.getElementById('id')
-const renderPageData = {}
-let americanRecipes = {}
+let nutritionURL = "https://trackapi.nutritionix.com/v2/search/instant?query="
 let extractedDessertRecipes = []
 let arrayIngredients = []
 let arrayInstructions = []
 let pageIngredients = []
 let pageInstructions = []
 let pageInstructions2 = " "
+let calorieInfo = null
+let servingInfo = null
 
 function renderHomePage() {
 	const divContainer = document.createElement('div')
@@ -30,15 +31,15 @@ function renderHomePage() {
 	const divRowSix = document.createElement('div')
 	divRowSix.classList.add("row", "justify-content-center")
 	const imgOne = document.createElement('img')
-	imgOne.classList.add('img-thumbnail', 'w-50')
+	imgOne.classList.add('img-thumbnail', 'w-50','topShadow')
 	imgOne.id = "img1"
 	imgOne.src = "https://spoonacular.com/recipeImages/639114-556x370.jpg"
 	const imgTwo = document.createElement('img')
-	imgTwo.classList.add('img-thumbnail', 'w-50')
+	imgTwo.classList.add('img-thumbnail', 'w-50', 'topShadow')
 	imgTwo.id = "img2"
 	imgTwo.src = "https://spoonacular.com/recipeImages/651958-556x370.jpg"
 	const imgThree = document.createElement('img')
-	imgThree.classList.add('img-thumbnail', 'w-50')
+	imgThree.classList.add('img-thumbnail', 'w-50', 'topShadow')
 	imgThree.id = "img3"
 	imgThree.src = "https://spoonacular.com/recipeImages/638038-556x370.jpg"
 	imgOne.style.cursor = "pointer";
@@ -74,6 +75,8 @@ const imgThree = document.getElementById('img3')
 imgOne.addEventListener('click', getExtractedRandomDessertRecipes)
 imgTwo.addEventListener('click', getExtractedRandomDinnerRecipes)
 imgThree.addEventListener('click', getExtractedRandomBreakfastRecipes)
+const easy = document.querySelector('h1')
+easy.addEventListener('click', getNutrition)
 
 function renderRecipeIngredientPage(data) {
 	extractedDessertRecipes = data
@@ -96,7 +99,8 @@ function renderRecipeIngredientPage(data) {
 	main.innerHTML = " "
 	main.classList.remove('flex')
 	main.classList.add('d-flex')
-	h3R.textContent = pageInstructions2
+	// h3R.textContent = pageInstructions2
+	// nutritionURL += pageInstructions2
 	h3R.classList.add('pt-2')
 	h2I.textContent = "Here is your recipe"
 	h2I.classList.add('shadow', 'w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
@@ -117,6 +121,7 @@ function renderRecipeIngredientPage(data) {
 	image.classList.add("mt-10", "mb-3", "img-thumbnail", 'topShadow')
 	imgDiv.appendChild(image)
 	h3R.textContent = extractedDessertRecipes.recipes[0].title
+	nutritionURL += extractedDessertRecipes.recipes[0].title
 
 	main.appendChild(ul)
 }
@@ -129,6 +134,7 @@ function renderRecipeIngredientPage(data) {
 			dataType: "json",
 
 			success: function (data) {
+				error: error => error,
 				renderRecipeIngredientPage(data)
 			}
 		})
@@ -142,6 +148,7 @@ function renderRecipeIngredientPage(data) {
 			dataType: "json",
 
 			success: function (data) {
+				error: error => error,
 				renderRecipeIngredientPage(data)
 			}
 		})
@@ -155,7 +162,27 @@ function renderRecipeIngredientPage(data) {
 			dataType: "json",
 
 			success: function (data) {
+				error: error => error,
 				renderRecipeIngredientPage(data)
 			}
 		})
 }
+
+	function getNutrition(data) {
+		$.ajax({
+			type: "GET",
+			url: nutritionURL,
+			contentType: "application/json",
+			dataType: "json",
+			headers: {
+				"x-app-id": "f21054df",
+				"x-app-key": "942d221bb8085822d01d5dbf709b8716"
+			},
+
+			error: error => error,
+			success: function (data) {
+				calorieInfo = data.branded[0].nf_calories
+				servingInfo = data.branded[0].serving_qty
+			}
+		})
+	}
