@@ -13,20 +13,27 @@
 </head>
 <body>
 	<div class="container borderT">
-		<div id="header" class="row d-flex justify-content-center shadow p-3 text-black">
-			<h1 id="headerh2">EASY RECIPE</h1>
+		<div id="header" class="row d-flex justify-content-center shadow p-3 text-black bg-light">
+			<h1 id="headerH2">EASY RECIPE</h1>
+			<div>
+				<button id="bHome" class="active shadow m-3 p-3 bg-light hidden">Home</button>
+				<button id="bNutrition" class="shadow m-3 p-3 bg-light hidden">Nutrition</button>
+				<button id="bBack" class="shadow m-3 p-3 bg-light hidden">Back</button>
+			</div>
 		</div>
 		<section class="container d-flex justify-content-center background text-black">
 			<h3 id="choose" class="row"></h3>
 		</section>
-		<div id="imgDiv" class="container d-flex justify-content-center">
-		</div>
+		<div id="imgDiv" class="container d-flex justify-content-center"></div>
 			<section class="container d-flex justify-content-center text-black">
-				<h2 id="choose" class="row">Choose Your Main Dish</h2>
+				<h2 id="hereIsRecipe" class="row">Choose Your Recipe</h2>
 			</section>
 			<main class="container flex justify-content-center text-black borders">
 				<h2 id="h2R" class="text-center"></h2>
 			</main>
+			<div class="col d-flex justify-content-center modal-overlay hidden modalHeightBeforeReveal">
+				<div id="modalContent" class="modal-content text-center hidden"></div>
+			</div>
 		</div>
 	</div>
 

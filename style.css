@@ -1,7 +1,7 @@
 body {
 	font-family: 'Girassol', cursive;
 	background-color: black;
-	height: 100%;
+	height: 97vh;
 	background-image: url(images/ltP7UD.jpg);
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -12,10 +12,6 @@ h2,
 h1,
 h3 {
 	font-family: 'Open Sans', sans-serif;
-}
-
-.hidden {
-	display: none
 }
 
 .topShadow {
@@ -33,6 +29,26 @@ h3 {
 	cursor: pointer;
 }
 
-.background {
-	opacity: 2;
+.hidden {
+	display: none
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  width: 85%;
+}
+
+.modal-content {
+  background-color: cornsilk;
+  border: solid 2px black;
+  width: 50%;
+}
+
+.modalHeightBeforeReveal {
+	height: 1%
 }

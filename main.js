@@ -2,9 +2,17 @@ const main = document.querySelector('main')
 const h3R = document.querySelector('h3')
 const h2I = document.querySelector('h2')
 const h2R = document.getElementById('h2R')
+const header = document.getElementById('header')
+const h3Choose = document.getElementById('choose')
 const section = document.querySelector('section')
 const imgDiv = document.getElementById('imgDiv')
 const divList = document.getElementById('id')
+const buttonHome = document.getElementById('bHome')
+const buttonNutrition = document.getElementById('bNutrition')
+const buttonBack = document.getElementById('bBack')
+const hereIsRecips = document.getElementById('hereIsRecipe')
+const modalOverlay = document.querySelector('.modal-overlay')
+const modalContent = document.getElementById('modalContent')
 let nutritionURL = "https://trackapi.nutritionix.com/v2/search/instant?query="
 let extractedDessertRecipes = []
 let arrayIngredients = []
@@ -16,8 +24,7 @@ let calorieInfo = null
 let servingInfo = null
 
 function renderHomePage() {
-	const divContainer = document.createElement('div')
-	divContainer.classList.add("container")
+	main.innerHTML = " "
 	const divRowOne = document.createElement('div')
 	divRowOne.classList.add("row", "justify-content-center")
 	const divRowTwo = document.createElement('div')
@@ -42,17 +49,19 @@ function renderHomePage() {
 	imgThree.classList.add('img-thumbnail', 'w-50', 'topShadow')
 	imgThree.id = "img3"
 	imgThree.src = "https://spoonacular.com/recipeImages/638038-556x370.jpg"
-	imgOne.style.cursor = "pointer";
-	imgTwo.style.cursor = "pointer";
-	imgThree.style.cursor = "pointer";
+	imgOne.style.cursor = "pointer"
+	imgTwo.style.cursor = "pointer"
+	imgThree.style.cursor = "pointer"
 	const h2One = document.createElement('h3')
 	h2One.textContent = "Dessert Recipes"
 	const h2Two = document.createElement('h3')
 	h2Two.textContent = "Breakfast Recipes"
 	const h2Three = document.createElement('h3')
 	h2Three.textContent = "Dinner Recipes"
+	imgOne.addEventListener('click', getExtractedRandomDessertRecipes)
+	imgTwo.addEventListener('click', getExtractedRandomDinnerRecipes)
+	imgThree.addEventListener('click', getExtractedRandomBreakfastRecipes)
 
-	main.appendChild(divContainer)
 	main.appendChild(divRowOne)
 	divRowOne.appendChild(imgOne)
 	main.appendChild(divRowTwo)
@@ -69,14 +78,35 @@ function renderHomePage() {
 
 renderHomePage()
 
-const imgOne = document.getElementById('img1')
-const imgTwo = document.getElementById('img2')
-const imgThree = document.getElementById('img3')
-imgOne.addEventListener('click', getExtractedRandomDessertRecipes)
-imgTwo.addEventListener('click', getExtractedRandomDinnerRecipes)
-imgThree.addEventListener('click', getExtractedRandomBreakfastRecipes)
-const easy = document.querySelector('h1')
-easy.addEventListener('click', getNutrition)
+function nutrition() {
+	main.innerHTML = " "
+	buttonNutrition.classList.add("hidden")
+	buttonHome.classList.add("hidden")
+	main.classList.remove('d-flex')
+	imgDiv.innerHTML = " "
+	h3Choose.innerHTML = " "
+	hereIsRecipe.innerHTML = " "
+	h2I.textContent = servingInfo
+	h2I.classList.add('shadow', 'w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
+	h2R.textContent = calorieInfo
+	h2R.classList.add('shadow', 'pt-1')
+	main.appendChild(h2I)
+	main.appendChild(h2R)
+}
+function homeFromRecipePage(event) {
+	renderHomePage()
+	buttonNutrition.classList.add("hidden")
+	buttonHome.classList.add("hidden")
+	main.classList.remove('d-flex')
+	imgDiv.innerHTML = " "
+	h3Choose.innerHTML = " "
+	hereIsRecipe.innerHTML = " "
+	hereIsRecipe.classList.remove('shadow')
+	hereIsRecipe.innerText = "Choose Your Recipe"
+	imgOne.addEventListener('click', getExtractedRandomDessertRecipes)
+	imgTwo.addEventListener('click', getExtractedRandomDinnerRecipes)
+	imgThree.addEventListener('click', getExtractedRandomBreakfastRecipes)
+}
 
 function renderRecipeIngredientPage(data) {
 	extractedDessertRecipes = data
@@ -99,8 +129,6 @@ function renderRecipeIngredientPage(data) {
 	main.innerHTML = " "
 	main.classList.remove('flex')
 	main.classList.add('d-flex')
-	// h3R.textContent = pageInstructions2
-	// nutritionURL += pageInstructions2
 	h3R.classList.add('pt-2')
 	h2I.textContent = "Here is your recipe"
 	h2I.classList.add('shadow', 'w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
@@ -122,8 +150,12 @@ function renderRecipeIngredientPage(data) {
 	imgDiv.appendChild(image)
 	h3R.textContent = extractedDessertRecipes.recipes[0].title
 	nutritionURL += extractedDessertRecipes.recipes[0].title
-
 	main.appendChild(ul)
+
+	buttonHome.classList.remove("hidden")
+	buttonNutrition.classList.remove("hidden")
+	buttonHome.addEventListener('click', homeFromRecipePage)
+	buttonNutrition.addEventListener('click', getNutrition)
 }
 
 	function getExtractedRandomDessertRecipes() {
@@ -181,8 +213,13 @@ function renderRecipeIngredientPage(data) {
 
 			error: error => error,
 			success: function (data) {
+				toString(data.branded[0].nf_calories)
+				toString(data.branded[0].serving_qty)
 				calorieInfo = data.branded[0].nf_calories
 				servingInfo = data.branded[0].serving_qty
+				modalContent.textContent = `Serving Size: ${servingInfo} Calories: ${calorieInfo}`
+				modalOverlay.classList.remove('hidden', 'modalHeightBeforeReveal')
+				modalContent.classList.remove('hidden')
 			}
 		})
 	}
