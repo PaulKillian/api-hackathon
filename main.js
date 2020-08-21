@@ -41,6 +41,9 @@ function renderHomePage() {
 	imgThree.classList.add('img-thumbnail', 'w-50')
 	imgThree.id = "img3"
 	imgThree.src = "https://spoonacular.com/recipeImages/638038-556x370.jpg"
+	imgOne.style.cursor = "pointer";
+	imgTwo.style.cursor = "pointer";
+	imgThree.style.cursor = "pointer";
 	const h2One = document.createElement('h3')
 	h2One.textContent = "Dessert Recipes"
 	const h2Two = document.createElement('h3')
@@ -111,7 +114,7 @@ function renderRecipeIngredientPage(data) {
 
 	const image = document.createElement('img')
 	image.src = extractedDessertRecipes.recipes[0].image
-	image.classList.add("mt-10", "mb-3", "img-thumbnail")
+	image.classList.add("mt-10", "mb-3", "img-thumbnail", 'topShadow')
 	imgDiv.appendChild(image)
 	h3R.textContent = extractedDessertRecipes.recipes[0].title
 
