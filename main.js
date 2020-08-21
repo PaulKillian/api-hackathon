@@ -4,6 +4,7 @@ const h2I = document.querySelector('h2')
 const h2R = document.getElementById('h2R')
 const section = document.querySelector('section')
 const imgDiv = document.getElementById('imgDiv')
+const divList = document.getElementById('id')
 const renderPageData = {}
 let americanRecipes = {}
 let extractedDessertRecipes = []
@@ -86,22 +87,31 @@ function renderRecipeIngredientPage(data) {
 	for (let i = 0; i < pageInstructions.length; i++) {
 		const li = document.createElement('li')
 		li.textContent = pageInstructions[i]
+		li.classList.add('list-group-item')
 		ul.appendChild(li)
 	}
 	main.innerHTML = " "
-	h2R.textContent = "Here are your ingredients!"
-	ul.appendChild(h2R)
+	main.classList.remove('flex')
+	main.classList.add('d-flex')
 	h3R.textContent = pageInstructions2
+	h3R.classList.add('pt-2')
 	h2I.textContent = "Here is your recipe!"
+	h2I.classList.add('shadow', 'w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
+	h2R.textContent = "Here are your ingredients!"
+	h2R.classList.add('shadow', 'pt-1')
+	ul.classList.add('list-group', 'w-75', 'shadow', 'pt-2')
+	ul.appendChild(h2R)
+
 	for (let i = 0; i < pageIngredients.length; i++) {
 		const li = document.createElement('li')
 		li.textContent = pageIngredients[i]
+		li.classList.add('list-group-item', 'text-center', 'w-100')
 		ul.appendChild(li)
 	}
 
 	const image = document.createElement('img')
 	image.src = extractedDessertRecipes.recipes[0].image
-	image.classList.add("mt-10", "mb-3")
+	image.classList.add("mt-10", "mb-3", "img-thumbnail")
 	imgDiv.appendChild(image)
 	h3R.textContent = extractedDessertRecipes.recipes[0].title
 

@@ -2,7 +2,7 @@ body {
 	font-family: 'Girassol', cursive;
 	background-color: black;
 	height: 100%;
-	background-image: url(images/FYATtm.jpg);
+	background-image: url(images/ltP7UD.jpg);
 	background-size: cover;
 	background-repeat: no-repeat;
 }
@@ -19,6 +19,7 @@ body {
 	background-color: cornsilk;
 	border-style: solid;
 	border-width: 3px !important;
+	opacity: 2;
 }
 
 .cursor {
