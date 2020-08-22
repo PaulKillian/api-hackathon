@@ -22,6 +22,9 @@ let pageInstructions = []
 let pageInstructions2 = " "
 let calorieInfo = null
 let servingInfo = null
+let nutData = null
+let nixURL = "https://trackapi.nutritionix.com/v2/search/item?nix_item_id="
+let nixData = {}
 
 function renderHomePage() {
 	main.innerHTML = " "
@@ -213,13 +216,85 @@ function renderRecipeIngredientPage(data) {
 
 			error: error => error,
 			success: function (data) {
-				toString(data.branded[0].nf_calories)
-				toString(data.branded[0].serving_qty)
-				calorieInfo = data.branded[0].nf_calories
-				servingInfo = data.branded[0].serving_qty
-				modalContent.textContent = `Serving Size: ${servingInfo} Calories: ${calorieInfo}`
+				nutData = data.branded[0].nix_item_id
+				nixURL += nutData
+
 				modalOverlay.classList.remove('hidden', 'modalHeightBeforeReveal')
 				modalContent.classList.remove('hidden')
+				getNix()
+			}
+		})
+
+		function getNix(data) {
+			$.ajax({
+				type: "GET",
+				url: nixURL,
+				contentType: "application/json",
+				dataType: "json",
+				headers: {
+					"x-app-id": "f21054df",
+					"x-app-key": "942d221bb8085822d01d5dbf709b8716"
+			},
+
+			error: error => error,
+				success: function (data) {
+					nixData = data.foods
+					const ul = document.createElement('ul')
+					ul.classList.add('list-group')
+					for (let i = 0; i < nixData.length; i++) {
+						let serving = nixData[i].serving_qty
+						const li10 = document.createElement('li')
+						li10.classList.add('list-group-item')
+						li10.textContent = `Serving Quanity: ${serving}`
+						let calories = nixData[i].nf_calories
+						const li1 = document.createElement('li')
+						li1.classList.add('list-group-item')
+						li1.textContent = `Calories: ${calories}`
+						let totalFat = nixData[i].nf_total_fat
+						const li2 = document.createElement('li')
+						li2.classList.add('list-group-item')
+						li2.textContent = `Total Fat: ${totalFat}`
+						let satFat = nixData[i].nf_saturated_fat
+						const li3 = document.createElement('li')
+						li3.classList.add('list-group-item')
+						li3.textContent = `Total Saturated Fat: ${satFat}`
+						let totalCarbs = nixData[i].nf_total_carbohydrate
+						const li4 = document.createElement('li')
+						li4.classList.add('list-group-item')
+						li4.textContent = `Total Carbohydrates: ${totalCarbs}`
+						let protein = nixData[i].nf_protein
+						const li5 = document.createElement('li')
+						li5.classList.add('list-group-item')
+						li5.textContent = `Protein: ${protein}`
+						let sugars = nixData[i].nf_sugars
+						const li6 = document.createElement('li')
+						li6.classList.add('list-group-item')
+						li6.textContent = `Sugars: ${sugars}`
+						let sodium = nixData[i].nf_sodium
+						const li7 = document.createElement('li')
+						li7.classList.add('list-group-item')
+						li7.textContent = `Sodium: ${sodium}`
+						let cholesterol = nixData[i].nf_cholesterol
+						const li8 = document.createElement('li')
+						li8.classList.add('list-group-item')
+						li8.textContent = `Cholesterol: ${cholesterol}`
+						let dietaryFiber = nixData[i].nf_dietary_fiber
+						const li9 = document.createElement('li')
+						li9.classList.add('list-group-item')
+						li9.textContent = `Dietary Fiber: ${dietaryFiber}`
+						ul.appendChild(li10)
+						ul.appendChild(li1)
+						ul.appendChild(li2)
+						ul.appendChild(li3)
+						ul.appendChild(li4)
+						ul.appendChild(li5)
+						ul.appendChild(li6)
+						ul.appendChild(li7)
+						ul.appendChild(li8)
+						ul.appendChild(li9)
+						modalContent.appendChild(ul)
+					}
 			}
 		})
 	}
+}
