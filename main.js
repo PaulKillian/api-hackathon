@@ -151,13 +151,14 @@ function renderRecipeIngredientPage(data) {
 	function getExtractedRandomDessertRecipes() {
 		$.ajax({
 			type: "GET",
-			url: "https://api.spoonacular.com/recipes/random?number=1&tags=dessert&apiKey=6f594a794c9e4c2b89c66311b4b9c999",
+			url: "https://api.spoonacular.com/recipes/random?number=1s&tags=dessert&apiKey=6f594a794c9e4c2b89c66311b4b9c999",
 			contentType: "application/json",
 			dataType: "json",
 
 			success: function (data) {
 				error: error => error,
 				renderRecipeIngredientPage(data)
+				console.log(data)
 			}
 		})
 }
@@ -220,7 +221,7 @@ function renderRecipeIngredientPage(data) {
 				dataType: "json",
 				headers: {
 					"x-app-id": "f21054df",
-					"x-app-key": "942d221bb8085822d01d5dbf709b8716"
+					"x-app-key": "f709403f9386d771a17c9f79935a51e9"
 			},
 
 			error: error => error,
