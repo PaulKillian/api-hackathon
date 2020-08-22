@@ -230,42 +230,52 @@ function renderRecipeIngredientPage(data) {
 					ul.classList.add('list-group')
 					for (let i = 0; i < nixData.length; i++) {
 						let serving = nixData[i].serving_qty
+						nixData['serving_gty'] = serving
 						const li10 = document.createElement('li')
 						li10.classList.add('list-group-item')
 						li10.textContent = `Serving Quanity: ${serving}`
 						let calories = nixData[i].nf_calories
+						nixData['calories'] = calories
 						const li1 = document.createElement('li')
 						li1.classList.add('list-group-item')
 						li1.textContent = `Calories: ${calories}`
 						let totalFat = nixData[i].nf_total_fat
+						nixData['total-fat'] = totlFat
 						const li2 = document.createElement('li')
 						li2.classList.add('list-group-item')
 						li2.textContent = `Total Fat: ${totalFat}`
 						let satFat = nixData[i].nf_saturated_fat
+						nixData['saturated_fat'] = satFat
 						const li3 = document.createElement('li')
 						li3.classList.add('list-group-item')
 						li3.textContent = `Total Saturated Fat: ${satFat}`
 						let totalCarbs = nixData[i].nf_total_carbohydrate
+						nixData['total-carbs'] = totalCarbs
 						const li4 = document.createElement('li')
 						li4.classList.add('list-group-item')
 						li4.textContent = `Total Carbohydrates: ${totalCarbs}`
 						let protein = nixData[i].nf_protein
+						nixData['protein'] = protein
 						const li5 = document.createElement('li')
 						li5.classList.add('list-group-item')
 						li5.textContent = `Protein: ${protein}`
 						let sugars = nixData[i].nf_sugars
+						nixData['sugars'] = sugars
 						const li6 = document.createElement('li')
 						li6.classList.add('list-group-item')
 						li6.textContent = `Sugars: ${sugars}`
 						let sodium = nixData[i].nf_sodium
+						nixData['sodium'] = sodium
 						const li7 = document.createElement('li')
 						li7.classList.add('list-group-item')
 						li7.textContent = `Sodium: ${sodium}`
 						let cholesterol = nixData[i].nf_cholesterol
+						nixData['cholesteral'] = cholesteral
 						const li8 = document.createElement('li')
 						li8.classList.add('list-group-item')
 						li8.textContent = `Cholesterol: ${cholesterol}`
 						let dietaryFiber = nixData[i].nf_dietary_fiber
+						nixData['dietary-fiber'] = dietaryFiber
 						const li9 = document.createElement('li')
 						li9.classList.add('list-group-item')
 						li9.textContent = `Dietary Fiber: ${dietaryFiber}`

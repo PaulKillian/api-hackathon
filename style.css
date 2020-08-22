@@ -1,17 +1,16 @@
 body {
-	font-family: 'Girassol', cursive;
-	background-color: black;
+	font-family: 'Bigshot One', cursive;
 	height: 97vh;
-	background-image: url(images/ltP7UD.jpg);
-	background-size: cover;
-	background-repeat: no-repeat;
 }
 
 li,
 h2,
-h1,
 h3 {
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'Baloo Da 2', cursive;
+}
+
+.bColor {
+	background-color: cornsilk;
 }
 
 .topShadow {
@@ -19,10 +18,15 @@ h3 {
 }
 
 .borderT {
-	background-color: cornsilk;
+	background-image: url(images/pexels-daria-shevtsova-1095550.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
 	border-style: solid;
-	border-width: 3px !important;
-	opacity: 2;
+	border-width: 5px !important;
+}
+
+img:hover {
+  opacity: 0.8;
 }
 
 .cursor {
@@ -44,7 +48,6 @@ h3 {
 }
 
 .modal-content {
-  background-color: cornsilk;
   border: solid 2px black;
   width: 50%;
 }
