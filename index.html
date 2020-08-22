@@ -13,13 +13,16 @@
 </head>
 <body>
 	<div class="container border-t">
-		<div id="header" class="b-color container top-shadow p-3 text-black w-100">
-			<h1 id="headerH2" class="d-flex justify-content-center">INSTANT RECIPE</h1>
+		<div id="header">
+			<h1 id="headerH2" class="d-flex justify-content-center text-black">INSTANT RECIPE</h1>
+			<div class="header-border"></div>
 			<div class="d-flex justify-content-center">
 				<button id="bHome" class="active shadow m-3 p-3 bg-light hidden">Home</button>
 				<button id="bNutrition" class="shadow m-3 p-3 bg-light hidden">Nutrition</button>
 				<button id="bBack" class="shadow m-3 p-3 bg-light hidden">Back</button>
 			</div>
+			<div class="spinner-border text-light" role="status">
+				<span class="sr-only">Loading...</span>
 		</div>
 		<section class="container d-flex justify-content-center background text-black">
 			<h3 id="choose" class="row"></h3>

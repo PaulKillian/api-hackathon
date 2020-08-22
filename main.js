@@ -93,6 +93,9 @@ function homeFromRecipePage(event) {
 	hereIsRecipe.innerHTML = " "
 	hereIsRecipe.classList.remove('shadow')
 	hereIsRecipe.innerText = "Choose Your Recipe"
+	const imgOne = document.getElementById('img1')
+	const imgTwo = document.getElementById('img2')
+	const imgThree = document.getElementById('img3')
 	imgOne.addEventListener('click', getExtractedRandomDessertRecipes)
 	imgTwo.addEventListener('click', getExtractedRandomDinnerRecipes)
 	imgThree.addEventListener('click', getExtractedRandomBreakfastRecipes)
@@ -146,6 +149,8 @@ function renderRecipeIngredientPage(data) {
 	buttonNutrition.classList.remove("hidden")
 	buttonHome.addEventListener('click', homeFromRecipePage)
 	buttonNutrition.addEventListener('click', getNutrition)
+
+	header.scrollIntoView();
 }
 
 	function getExtractedRandomDessertRecipes() {
