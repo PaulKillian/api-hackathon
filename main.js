@@ -13,6 +13,8 @@ const buttonBack = document.getElementById('bBack')
 const hereIsRecips = document.getElementById('hereIsRecipe')
 const modalOverlay = document.querySelector('.modal-overlay')
 const modalContent = document.getElementById('modalContent')
+const modalButton = document.getElementById('modalButton')
+const ul = document.querySelector('ul')
 let nutritionURL = "https://trackapi.nutritionix.com/v2/search/instant?query="
 let extractedDessertRecipes = []
 let arrayIngredients = []
@@ -81,21 +83,6 @@ function renderHomePage() {
 
 renderHomePage()
 
-function nutrition() {
-	main.innerHTML = " "
-	buttonNutrition.classList.add("hidden")
-	buttonHome.classList.add("hidden")
-	main.classList.remove('d-flex')
-	imgDiv.innerHTML = " "
-	h3Choose.innerHTML = " "
-	hereIsRecipe.innerHTML = " "
-	h2I.textContent = servingInfo
-	h2I.classList.add('shadow', 'w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
-	h2R.textContent = calorieInfo
-	h2R.classList.add('shadow', 'pt-1')
-	main.appendChild(h2I)
-	main.appendChild(h2R)
-}
 function homeFromRecipePage(event) {
 	renderHomePage()
 	buttonNutrition.classList.add("hidden")
@@ -239,7 +226,7 @@ function renderRecipeIngredientPage(data) {
 			error: error => error,
 				success: function (data) {
 					nixData = data.foods
-					const ul = document.createElement('ul')
+					ul.classList.add('d-flex', 'flex-column')
 					ul.classList.add('list-group')
 					for (let i = 0; i < nixData.length; i++) {
 						let serving = nixData[i].serving_qty
@@ -293,8 +280,17 @@ function renderRecipeIngredientPage(data) {
 						ul.appendChild(li8)
 						ul.appendChild(li9)
 						modalContent.appendChild(ul)
+						modalButton.classList.remove('hidden')
+						buttonNutrition.addEventListener('click', getNutrition)
 					}
-			}
+				}
 		})
 	}
 }
+	modalButton.addEventListener('click', function () {
+		modalContent.classList.add('hidden')
+		modalOverlay.classList.add('hidden')
+		modalButton.classList.add('hidden')
+		modalOverlay.classList.add('modalHeightBeforeReveal')
+		ul.innerHTML = " "
+	});
