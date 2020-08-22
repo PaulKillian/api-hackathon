@@ -43,15 +43,15 @@ function renderHomePage() {
 	const divRowSix = document.createElement('div')
 	divRowSix.classList.add("row", "justify-content-center")
 	const imgOne = document.createElement('img')
-	imgOne.classList.add('img-thumbnail', 'w-50','topShadow')
+	imgOne.classList.add('img-thumbnail', 'w-50','top-shadow')
 	imgOne.id = "img1"
 	imgOne.src = "https://spoonacular.com/recipeImages/639114-556x370.jpg"
 	const imgTwo = document.createElement('img')
-	imgTwo.classList.add('img-thumbnail', 'w-50', 'topShadow')
+	imgTwo.classList.add('img-thumbnail', 'w-50', 'top-shadow')
 	imgTwo.id = "img2"
 	imgTwo.src = "https://spoonacular.com/recipeImages/651958-556x370.jpg"
 	const imgThree = document.createElement('img')
-	imgThree.classList.add('img-thumbnail', 'w-50', 'topShadow')
+	imgThree.classList.add('img-thumbnail', 'w-50', 'top-shadow')
 	imgThree.id = "img3"
 	imgThree.src = "https://spoonacular.com/recipeImages/638038-556x370.jpg"
 	imgOne.style.cursor = "pointer"
@@ -121,9 +121,9 @@ function renderRecipeIngredientPage(data) {
 	main.classList.add('d-flex')
 	h3R.classList.add('pt-2')
 	h2I.textContent = "Here is your recipe"
-	h2I.classList.add('shadow', 'w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
+	h2I.classList.add('w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
 	h2R.textContent = "Here are your ingredients"
-	h2R.classList.add('shadow', 'pt-1')
+	h2R.classList.add('pt-1')
 	ul.classList.add('list-group', 'w-75', 'shadow', 'pt-2')
 	ul.appendChild(h2R)
 
@@ -136,7 +136,7 @@ function renderRecipeIngredientPage(data) {
 
 	const image = document.createElement('img')
 	image.src = extractedDessertRecipes.recipes[0].image
-	image.classList.add("mt-10", "mb-3", "img-thumbnail", 'topShadow')
+	image.classList.add("mt-10", "mb-3", "img-thumbnail", 'top-shadow')
 	imgDiv.appendChild(image)
 	h3R.textContent = extractedDessertRecipes.recipes[0].title
 	nutritionURL += extractedDessertRecipes.recipes[0].title
