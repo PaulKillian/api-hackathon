@@ -6,36 +6,46 @@
 	<title>Document</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css2?family=Girassol&family=Nova+Square&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Amita:wght@700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Bigshot+One&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div class="container borderT">
-		<div id="header" class="row d-flex justify-content-center bg-success shadow p-3 text-light">
-			<h1 id="headerh2">Easy Grocery List</h1>
+	<div class="container border-t col-sm-12 col-md-12 col-lg-12">
+		<div id="header">
+			<h1 id="headerH2" class="d-flex justify-content-center text-black">INSTANT RECIPE</h1>
+			<div class="header-border"></div>
+			<div class="d-flex justify-content-center">
+				<button id="button-home" class="active shadow m-3 p-3 bg-light hidden">Home</button>
+				<button id="button-nutrition" class="shadow m-3 p-3 bg-light hidden">Nutrition</button>
+				<button id="button-back" class="shadow m-3 p-3 bg-light hidden">Back</button>
+				<button id="new-recipe" class="shadow m-3 p-3 bg-light hidden">New Recipe</button>
+			</div>
+			<div class="d-flex justify-content-center spinner-border text-light invisible m-0" role="status">
+				<span class="sr-only">Loading...</span>
+		</div>
+		<section class="container d-flex justify-content-center background text-black">
+			<h3 id="choose-recipe" class="text-center col-6-sm row"></h3>
+		</section>
+		<div id="img-div" class="container d-flex justify-content-center"></div>
+			<section class="container d-flex justify-content-center text-black">
+				<h2 id="here-is-recipe" class="text-center mb-3 row">Choose Your Recipe</h2>
+			</section>
+			<main class="container flex justify-content-center text-black borders">
+				<h2 id="h2R" class="text-center"></h2>
+			</main>
+			<div class="col d-flex flex-column justify-content-center modal-overlay modalHeightBeforeReveal">
+				<div id="modal-content" class="modal-content text-center hidden">
+					<ul></ul>
+				</div>
+				<button id="modal-button"class="shadow m-3 p-3 bg-light hidden">Go Back</button>
+			</div>
 		</div>
 	</div>
-		<section class="container d-flex justify-content-center bg-primary text-light">
-			<h2 id="choose" class="row mt-3">Choose Your Main Dish</h2>
-		</section>
-		<main class="container flex justify-content-center bg-primary text-light borders">
-
-		</main>
-	</div>
-	<div class="d-flex justify-content-center">
-		<button type="button" class="btn ml-3 btn-primary hidden">Back</button>
-	</div>
-
 
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
-	<script src="app.js"></script>
-	<script src="mainDish.js"></script>
-	<script src="components/nutrition.js"></script>
-	<script src="components/beefIngredientList.js"></script>
-	<script src="components/chickenIngredientList.js"></script>
-	<script src="components/fishIngredientList.js"></script>
-	<script src="components/recipes.js"></script>
 	<script src="main.js"></script>
 </body>
 </html>
