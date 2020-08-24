@@ -185,15 +185,6 @@ function renderRecipeIngredientPage(data) {
 	stop()
 }
 
-function spin() {
-	spinner.classList.remove('invisible')
-}
-function stop() {
-	spinner.classList.add('invisible')
-	clearInterval(timeToSpin)
-}
-
-
 function getExtractedRandomBreakfastRecipes() {
 	timeToSpin = setInterval(spin, 1000)
 	currentRecipe = 1
@@ -305,6 +296,7 @@ function getNutrition(data) {
 			nixURL += nutData
 			modalOverlay.classList.remove('hidden', 'modalHeightBeforeReveal')
 			modalContent.classList.remove('hidden')
+			stop()
 			getNix()
 		}
 	})
@@ -384,6 +376,7 @@ function getNix(data) {
 			modalButton.classList.remove('hidden')
 			buttonNutrition.addEventListener('click', getNutrition)
 		}
+		stop()
 	}
 })
 }
@@ -398,15 +391,23 @@ modalButton.addEventListener('click', function () {
 });
 
 function noRecipe() {
-container.innerHTML = " "
-const headerH1 = document.createElement('h1')
-headerH1.classList.add('bg-dark', 'text-center')
-headerH1.textContent = "Oop! Something went wrong. Please choose another recipe!"
-container.appendChild(headerH1)
-const recipeWrong = document.createElement('button')
-recipeWrong.type = "button"
-recipeWrong.classList.add('btn', 'card-bg-color')
-recipeWrong.textContent = "Get New Recipe"
-recipeWrong.addEventListener('click', getNewRecipe)
-headerH1.appendChild(recipeWrong)
+	container.innerHTML = " "
+	const headerH1 = document.createElement('h1')
+	headerH1.classList.add('bg-dark', 'text-center')
+	headerH1.textContent = "Oop! Something went wrong. Please choose another recipe!"
+	container.appendChild(headerH1)
+	const recipeWrong = document.createElement('button')
+	recipeWrong.type = "button"
+	recipeWrong.classList.add('btn', 'card-bg-color')
+	recipeWrong.textContent = "Get New Recipe"
+	recipeWrong.addEventListener('click', getNewRecipe)
+	headerH1.appendChild(recipeWrong)
+}
+
+function spin() {
+	spinner.classList.remove('invisible')
+}
+function stop() {
+	spinner.classList.add('invisible')
+	clearInterval(timeToSpin)
 }
