@@ -17,7 +17,8 @@ const modalContent = document.getElementById('modal-content')
 const modalButton = document.getElementById('modal-button')
 const spinner = document.querySelector('.spinner-border')
 const ul = document.querySelector('ul')
-let counter = 0
+let timeToSpin = null
+let currentRecipe = 0
 let nutritionURL = "https://trackapi.nutritionix.com/v2/search/instant?query="
 let extractRecipes = []
 let arrayIngredients = []
@@ -33,7 +34,6 @@ let nixData = {}
 
 function renderHomePage() {
 	main.innerHTML = " "
-	spinner.classList.remove('invisible')
 	const divRowOne = document.createElement('div')
 	divRowOne.classList.add("row", "justify-content-center")
 	const divRowTwo = document.createElement('div')
@@ -86,8 +86,6 @@ function renderHomePage() {
 	divRowFive.appendChild(imgThree)
 	main.appendChild(divRowSix)
 	divRowSix.appendChild(h2Three)
-
-	spinner.classList.add('invisible')
 }
 
 renderHomePage()
@@ -95,7 +93,6 @@ renderHomePage()
 const recipeAndIngredients = {
 	renderRecipeIngredientPage: function(data) {
 		main.innerHTML = " "
-		spinner.classList.remove('invisible')
 		imgDiv.innerHTML = " "
 		extractRecipes = data
 		arrayInstructions = extractRecipes.recipes[0].analyzedInstructions[0].steps
@@ -155,16 +152,27 @@ const recipeAndIngredients = {
 		header.scrollIntoView();
 		pageIngredients = []
 		pageInstructions = []
-
 		spinner.classList.add('invisible')
+		stop()
 	}
 }
 
+function spin() {
+	spinner.classList.remove('invisible')
+}
+
+function stop() {
+	spinner.classList.add('invisible')
+	clearInterval(timeToSpin)
+}
+
+
 function getExtractedRandomBreakfastRecipes() {
-	counter = 1
+	timeToSpin = setInterval(spin, 1000)
+	currentRecipe = 1
 	$.ajax({
 		type: "GET",
-		url: "https://api.spoonacular.com/recipes/random?number=1s&tags=breakfast&apiKey=6f594a794c9e4c2b89c66311b4b9c999",
+		url: "https://api.spoonacular.com/recipes/random?number=1&tags=breakfast&apiKey=6f594a794c9e4c2b89c66311b4b9c999",
 		contentType: "application/json",
 		dataType: "json",
 
@@ -176,10 +184,11 @@ function getExtractedRandomBreakfastRecipes() {
 }
 
 function getExtractedRandomLunchRecipes() {
-	counter = 2
+	timeToSpin = setInterval(spin, 1000)
+	currentRecipe = 2
 	$.ajax({
 		type: "GET",
-		url: "https://api.spoonacular.com/recipes/random?number=2&tags=lunch&apiKey=6f594a794c9e4c2b89c66311b4b9c999",
+		url: "https://api.spoonacular.com/recipes/random?number=1&tags=lunch&apiKey=6f594a794c9e4c2b89c66311b4b9c999",
 		contentType: "application/json",
 		dataType: "json",
 
@@ -191,7 +200,8 @@ function getExtractedRandomLunchRecipes() {
 }
 
 function getExtractedRandomDinnerRecipes(event) {
-	counter = 3
+	timeToSpin = setInterval(spin, 1000)
+	currentRecipe = 3
 	$.ajax({
 		type: "GET",
 		url: "https://api.spoonacular.com/recipes/random?number=1&tags=dinner&apiKey=6f594a794c9e4c2b89c66311b4b9c999",
@@ -225,18 +235,19 @@ function homeFromRecipePage(event) {
 }
 
 function getNewRecipe(event) {
-	if (counter === 1) {
+	if (currentRecipe === 1) {
 		getExtractedRandomDessertRecipes()
 	}
-	if (counter === 2) {
+	if (currentRecipe === 2) {
 		getExtractedRandomBreakfastRecipes()
 	}
-	if (counter === 3) {
+	if (currentRecipe === 3) {
 		getExtractedRandomDinnerRecipes()
 	}
 }
 
 function getNutrition(data) {
+	timeToSpin = setInterval(spin, 1000)
 	$.ajax({
 		type: "GET",
 		url: nutritionURL,
@@ -260,6 +271,7 @@ function getNutrition(data) {
 
 
 function getNix(data) {
+	timeToSpin = setInterval(spin, 1000)
 	$.ajax({
 		type: "GET",
 		url: nixURL,
@@ -278,24 +290,19 @@ function getNix(data) {
 			for (let i = 0; i < nixData.length; i++) {
 				let serving = nixData[i].serving_qty
 				nixData['serving_gty'] = serving
-				const li10 = document.createElement('li')
-				li10.classList.add('list-group-item')
-				li10.textContent = `Serving Quanity: ${serving}`
-				let calories = nixData[i].nf_calories
-				nixData['calories'] = calories
 				const li1 = document.createElement('li')
 				li1.classList.add('list-group-item')
-				li1.textContent = `Calories: ${calories}`
-				let totalFat = nixData[i].nf_total_fat
-				nixData['total-fat'] = totalFat
+				li1.textContent = `Serving Quanity: ${serving}`
+				let calories = nixData[i].nf_calories
+				nixData['calories'] = calories
 				const li2 = document.createElement('li')
 				li2.classList.add('list-group-item')
-				li2.textContent = `Total Fat: ${totalFat}`
-				let satFat = nixData[i].nf_saturated_fat
-				nixData['saturated_fat'] = satFat
+				li2.textContent = `Calories: ${calories}`
+				let totalFat = nixData[i].nf_total_fat
+				nixData['total-fat'] = totalFat
 				const li3 = document.createElement('li')
 				li3.classList.add('list-group-item')
-				li3.textContent = `Total Saturated Fat: ${satFat}`
+				li3.textContent = `Total Fat: ${totalFat}`
 				let totalCarbs = nixData[i].nf_total_carbohydrate
 				nixData['total-carbs'] = totalCarbs
 				const li4 = document.createElement('li')
@@ -316,17 +323,11 @@ function getNix(data) {
 				const li7 = document.createElement('li')
 				li7.classList.add('list-group-item')
 				li7.textContent = `Sodium: ${sodium}`
-				let cholesterol = nixData[i].nf_cholesterol
-				nixData['cholesteral'] = cholesterol
-				const li8 = document.createElement('li')
-				li8.classList.add('list-group-item')
-				li8.textContent = `Cholesterol: ${cholesterol}`
 				let dietaryFiber = nixData[i].nf_dietary_fiber
 				nixData['dietary-fiber'] = dietaryFiber
-				const li9 = document.createElement('li')
-				li9.classList.add('list-group-item')
-				li9.textContent = `Dietary Fiber: ${dietaryFiber}`
-				ul.appendChild(li10)
+				const li8 = document.createElement('li')
+				li8.classList.add('list-group-item')
+				li8.textContent = `Dietary Fiber: ${dietaryFiber}`
 				ul.appendChild(li1)
 				ul.appendChild(li2)
 				ul.appendChild(li3)
@@ -335,7 +336,6 @@ function getNix(data) {
 				ul.appendChild(li6)
 				ul.appendChild(li7)
 				ul.appendChild(li8)
-				ul.appendChild(li9)
 				modalContent.appendChild(ul)
 				modalButton.classList.remove('hidden')
 				buttonNutrition.addEventListener('click', getNutrition)
@@ -352,16 +352,3 @@ modalButton.addEventListener('click', function () {
 	modalOverlay.classList.add('modalHeightBeforeReveal')
 	ul.innerHTML = " "
 });
-
-// const save {
-// 	calories: [
-// 		{
-// 			time: '5:00 p.m.',
-// 			description: 'Meeting with Jeff'
-//     },
-// }
-// function saveRecipe() {
-// 	days[calories].push(obj);
-
-// 	currentDay = dayValue;
-// }
