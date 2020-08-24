@@ -51,6 +51,10 @@ img:hover {
 	cursor: pointer;
 }
 
+.card-bg-color {
+	background-color: rgb(168, 130, 77);
+}
+
 .hidden {
 	display: none
 }

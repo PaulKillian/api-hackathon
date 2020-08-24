@@ -1,3 +1,4 @@
+const container = document.getElementById('container')
 const main = document.querySelector('main')
 const h3R = document.querySelector('h3')
 const h2I = document.querySelector('h2')
@@ -35,127 +36,156 @@ let nixData = {}
 function renderHomePage() {
 	main.innerHTML = " "
 	const divRowOne = document.createElement('div')
-	divRowOne.classList.add("row", "justify-content-center")
+	divRowOne.classList.add('card', "row", "justify-content-center")
+	divRowOne.setAttribute("width", "10rem")
+	const pforRecipeImg1 = document.createElement('h3')
+	pforRecipeImg1.textContent = "Breakfast"
+	pforRecipeImg1.classList.add('text-center')
+	const recipeCardBody1 = document.createElement('div')
+	recipeCardBody1.classList.add('card-body', 'card-bg-color', 'mb-2')
 	const divRowTwo = document.createElement('div')
 	divRowTwo.classList.add("row", "justify-content-center")
 	const divRowThree = document.createElement('div')
-	divRowThree.classList.add("row", "justify-content-center")
+	divRowThree.setAttribute("width", "10rem")
+	divRowThree.classList.add("card", "row", "justify-content-center")
+	const pforRecipeImg2 = document.createElement('h3')
+	pforRecipeImg2.textContent = "Lunch"
+	pforRecipeImg2.classList.add('text-center')
+	const recipeCardBody3 = document.createElement('div')
+	recipeCardBody3.classList.add('card-body', 'card-bg-color', 'mb-2')
 	const divRowFour = document.createElement('div')
 	divRowFour.classList.add("row", "justify-content-center")
 	const divRowFive = document.createElement('div')
-	divRowFive.classList.add("row", "justify-content-center")
+	divRowFive.classList.add("card", "row", "justify-content-center")
+	divRowFive.setAttribute("width", "10rem")
+	const pforRecipeImg3 = document.createElement('h3')
+	pforRecipeImg3.textContent = "Dinner"
+	pforRecipeImg3.classList.add('text-center')
+	const recipeCardBody5 = document.createElement('div')
+	recipeCardBody5.classList.add('card-body', 'card-bg-color', 'mt-2')
 	const divRowSix = document.createElement('div')
 	divRowSix.classList.add("row", "justify-content-center")
 	const imgOne = document.createElement('img')
-	imgOne.classList.add('img-thumbnail', 'w-50','top-shadow')
+	imgOne.classList.add('card-img-top', 'top-shadow',)
 	imgOne.id = "img1"
 	imgOne.src = "https://spoonacular.com/recipeImages/639114-556x370.jpg"
 	const imgTwo = document.createElement('img')
-	imgTwo.classList.add('img-thumbnail', 'w-50', 'top-shadow')
+	imgTwo.classList.add('card-img-top','top-shadow',)
 	imgTwo.id = "img2"
 	imgTwo.src = "https://spoonacular.com/recipeImages/986003-556x370.jpg"
 	const imgThree = document.createElement('img')
-	imgThree.classList.add('img-thumbnail', 'w-50', 'top-shadow')
+	imgThree.classList.add('card-img-top','top-shadow',)
 	imgThree.id = "img3"
 	imgThree.src = "https://spoonacular.com/recipeImages/638038-556x370.jpg"
 	imgOne.style.cursor = "pointer"
 	imgTwo.style.cursor = "pointer"
 	imgThree.style.cursor = "pointer"
 	const h2One = document.createElement('h3')
-	h2One.textContent = "Breakfast Recipes"
-	h2One.classList.add("mt-2")
-	const h2Two = document.createElement('h3')
-	h2Two.textContent = "Lunch Recipes"
-	h2Two.classList.add("mt-2")
-	const h2Three = document.createElement('h3')
-	h2Three.textContent = "Dinner Recipes"
-	h2Three.classList.add("mt-2", "mb-4")
+
+
 	imgOne.addEventListener('click', getExtractedRandomBreakfastRecipes)
 	imgTwo.addEventListener('click', getExtractedRandomLunchRecipes)
 	imgThree.addEventListener('click', getExtractedRandomDinnerRecipes)
 
 	main.appendChild(divRowOne)
 	divRowOne.appendChild(imgOne)
+	divRowOne.appendChild(recipeCardBody1)
+	recipeCardBody1.appendChild(pforRecipeImg1)
 	main.appendChild(divRowTwo)
-	divRowTwo.appendChild(h2One)
+
 	main.appendChild(divRowThree)
 	divRowThree.appendChild(imgTwo)
+	divRowThree.appendChild(recipeCardBody3)
+	recipeCardBody3.appendChild(pforRecipeImg2)
 	main.appendChild(divRowFour)
-	divRowFour.appendChild(h2Two)
+
 	main.appendChild(divRowFive)
 	divRowFive.appendChild(imgThree)
+	divRowFive.appendChild(recipeCardBody5)
+	recipeCardBody5.appendChild(pforRecipeImg3)
 	main.appendChild(divRowSix)
-	divRowSix.appendChild(h2Three)
+
 }
 
 renderHomePage()
 
-const recipeAndIngredients = {
-	renderRecipeIngredientPage: function(data) {
-		main.innerHTML = " "
-		imgDiv.innerHTML = " "
-		extractRecipes = data
-		arrayInstructions = extractRecipes.recipes[0].analyzedInstructions[0].steps
-		arrayIngredients = extractRecipes.recipes[0].extendedIngredients
-		for (let i = 0; i < arrayIngredients.length; i++) {
-			pageIngredients.push(arrayIngredients[i].name)
-		}
-		for (let i = 0; i < arrayInstructions.length; i++) {
-			if (extractRecipes.recipes[0].analyzedInstructions[0] === undefined) {
-				h3R.innerHTML = " "
-				hereIsRecipe.textContent = "Oops! Something went wrong."
-			}
-			pageInstructions.push(arrayInstructions[i].step)
-		}
 
-		const ul = document.createElement('ul')
-		ul.id = "list"
-		ul.innerText = " "
-		for (let i = 0; i < pageInstructions.length; i++) {
-			const li = document.createElement('li')
-			li.textContent = pageInstructions[i]
-			li.classList.add('list-group-item')
-			ul.appendChild(li)
-		}
-		main.classList.remove('flex')
-		main.classList.add('d-flex')
-		h3R.classList.add('pt-2')
-		h2I.textContent = "Here is your recipe"
-		h2I.classList.add('w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
-		h2R.textContent = "Here are your ingredients"
-		h2R.classList.add('pt-1')
-		ul.classList.add('list-group', 'w-75', 'shadow', 'pt-2')
-		ul.appendChild(h2R)
-
-		for (let i = 0; i < pageIngredients.length; i++) {
-			const li = document.createElement('li')
-			li.textContent = pageIngredients[i]
-			li.classList.add('list-group-item', 'text-center', 'w-100')
-			ul.appendChild(li)
-		}
-
-		const image = document.createElement('img')
-		image.src = extractRecipes.recipes[0].image
-		image.classList.add("mt-10", "mb-3", "img-thumbnail", 'top-shadow')
-		imgDiv.appendChild(image)
-		h3R.textContent = extractRecipes.recipes[0].title
-		nutritionURL += extractRecipes.recipes[0].title
-		main.appendChild(ul)
-
-		buttonHome.classList.remove("hidden")
-		buttonNutrition.classList.remove("hidden")
-		newRecipe.classList.remove("hidden")
-		buttonHome.addEventListener('click', homeFromRecipePage)
-		buttonNutrition.addEventListener('click', getNutrition)
-		newRecipe.addEventListener('click', getNewRecipe)
-
-		header.scrollIntoView();
-		pageIngredients = []
-		pageInstructions = []
-		spinner.classList.add('invisible')
-		stop()
+function renderRecipeIngredientPage(data) {
+	main.innerHTML = " "
+	imgDiv.innerHTML = " "
+	extractRecipes = data
+	arrayInstructions = extractRecipes.recipes[0].analyzedInstructions[0].steps
+	arrayIngredients = extractRecipes.recipes[0].extendedIngredients
+	for (let i = 0; i < arrayIngredients.length; i++) {
+		pageIngredients.push(arrayIngredients[i].name)
 	}
+	for (let i = 0; i < arrayInstructions.length; i++) {
+		if (extractRecipes.recipes[0].analyzedInstructions[0] === undefined) {
+			h3R.innerHTML = " "
+			hereIsRecipe.textContent = "Oops! Something went wrong."
+		}
+		pageInstructions.push(arrayInstructions[i].step)
+	}
+
+	const ul = document.createElement('ul')
+	ul.id = "list"
+	ul.innerText = " "
+	for (let i = 0; i < pageInstructions.length; i++) {
+		const li = document.createElement('li')
+		li.textContent = pageInstructions[i]
+		li.classList.add('list-group-item')
+		ul.appendChild(li)
+	}
+	main.classList.remove('flex')
+	main.classList.add('d-flex')
+	h3R.classList.add('pt-2')
+	h2I.textContent = " "
+	h2I.classList.add('w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
+	h2R.textContent = "Here are your ingredients"
+	h2R.classList.add('pt-1', 'card-bg-color')
+	ul.classList.add('list-group', 'shadow', 'pt-2')
+	ul.appendChild(h2R)
+
+	for (let i = 0; i < pageIngredients.length; i++) {
+		const li = document.createElement('li')
+		li.textContent = pageIngredients[i]
+		li.classList.add('list-group-item', 'text-center', 'w-100')
+		ul.appendChild(li)
+	}
+
+	const image = document.createElement('img')
+	image.src = extractRecipes.recipes[0].image
+	image.alt = "Image of Recipe"
+	image.classList.add("card-img-top", "mt-10", "mb-3", "img-thumbnail", 'top-shadow', 'card-bg-color')
+	imgDiv.classList.add('card')
+	imgDiv.setAttribute("width", "18rem")
+	const recipeCardBody = document.createElement('div')
+	const h3 = document.createElement('h3')
+	h3.classList.add('card-title')
+	h3.textContent = extractRecipes.recipes[0].title
+	recipeCardBody.classList.add('card-body', 'card-bg-color', 'm-0')
+	nutritionURL += extractRecipes.recipes[0].title
+	imgDiv.appendChild(image)
+	imgDiv.appendChild(recipeCardBody)
+	imgDiv.appendChild(ul)
+	recipeCardBody.appendChild(h3)
+
+	buttonHome.classList.remove("hidden")
+	buttonNutrition.classList.remove("hidden")
+	newRecipe.classList.remove("hidden")
+	buttonHome.addEventListener('click', homeFromRecipePage)
+	buttonNutrition.addEventListener('click', getNutrition)
+	newRecipe.addEventListener('click', getNewRecipe)
+
+	header.scrollIntoView();
+	pageIngredients = []
+	pageInstructions = []
+	spinner.classList.add('invisible')
+
+	stop()
 }
+
+
 
 function spin() {
 	spinner.classList.remove('invisible')
@@ -176,9 +206,9 @@ function getExtractedRandomBreakfastRecipes() {
 		contentType: "application/json",
 		dataType: "json",
 
+		error: error => error,
 		success: function (data) {
-			error: error => error,
-			recipeAndIngredients.renderRecipeIngredientPage(data)
+			renderRecipeIngredientPage(data)
 		}
 	})
 }
@@ -192,9 +222,13 @@ function getExtractedRandomLunchRecipes() {
 		contentType: "application/json",
 		dataType: "json",
 
+		error: function error() {
+			container.innerHTML = " "
+			const headerH1 = document.createElement('h1')
+			headerH1.textContent = "Oop! Something went wrong. Please choose another recipe!"
+		},
 		success: function (data) {
-			error: error => error,
-				recipeAndIngredients.renderRecipeIngredientPage(data)
+				renderRecipeIngredientPage(data)
 		}
 	})
 }
@@ -210,7 +244,7 @@ function getExtractedRandomDinnerRecipes(event) {
 
 		success: function (data) {
 			error: error => error,
-				recipeAndIngredients.renderRecipeIngredientPage(data)
+				renderRecipeIngredientPage(data)
 		}
 	})
 }
@@ -232,6 +266,8 @@ function homeFromRecipePage(event) {
 	imgTwo.addEventListener('click', getExtractedRandomLunchRecipes)
 	imgThree.addEventListener('click', getExtractedRandomDinnerRecipes)
 	newRecipe.classList.add('hidden')
+	imgDiv.innerHTML = " "
+	imgDiv.classList.remove('card')
 }
 
 function getNewRecipe(event) {
@@ -352,3 +388,12 @@ modalButton.addEventListener('click', function () {
 	modalOverlay.classList.add('modalHeightBeforeReveal')
 	ul.innerHTML = " "
 });
+
+function testFunction() {
+container.innerHTML = " "
+const headerH1 = document.createElement('h1')
+headerH1.classList.add('bg-dark', 'text-center')
+headerH1.textContent = "Oop! Something went wrong. Please choose another recipe!"
+container.appendChild(headerH1)
+
+}
