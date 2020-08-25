@@ -37,9 +37,13 @@ let servingInfo = null
 let nutData = null
 let nixURL = "https://trackapi.nutritionix.com/v2/search/item?nix_item_id="
 let nixData = {}
+let nixCounter = 0
+container.addEventListener('click', handleEvent)
+
 
 function renderHomePage() {
-	main.innerHTML = " "
+	imgContainer.innerHTML = " "
+	imgRow.innerHTML = " "
 	const divRowOne = document.createElement('div')
 	divRowOne.classList.add('card')
 	divRowOne.setAttribute("width", "10rem")
@@ -87,23 +91,17 @@ function renderHomePage() {
 	imgThree.style.cursor = "pointer"
 	const h2One = document.createElement('h3')
 
-
-	imgOne.addEventListener('click', getExtractedRandomBreakfastRecipes)
-	imgTwo.addEventListener('click', getExtractedRandomLunchRecipes)
-	imgThree.addEventListener('click', getExtractedRandomDinnerRecipes)
-
+	imgContainer.appendChild(imgRow)
 	imgRow.appendChild(divRowOne)
 	divRowOne.appendChild(imgOne)
 	divRowOne.appendChild(recipeCardBody1)
 	recipeCardBody1.appendChild(pforRecipeImg1)
 	imgRow.appendChild(divRowTwo)
-
 	imgRow.appendChild(divRowThree)
 	divRowThree.appendChild(imgTwo)
 	divRowThree.appendChild(recipeCardBody3)
 	recipeCardBody3.appendChild(pforRecipeImg2)
 	imgRow.appendChild(divRowFour)
-
 	imgRow.appendChild(divRowFive)
 	divRowFive.appendChild(imgThree)
 	divRowFive.appendChild(recipeCardBody5)
@@ -115,6 +113,7 @@ renderHomePage()
 
 
 function renderRecipeIngredientPage(data) {
+	nixCounter = 0
 	main.innerHTML = " "
 	imgDiv.innerHTML = " "
 	imgContainer.innerHTML = " "
@@ -273,15 +272,13 @@ function homeFromRecipePage(event) {
 	const imgOne = document.getElementById('img1')
 	const imgTwo = document.getElementById('img2')
 	const imgThree = document.getElementById('img3')
-	imgOne.addEventListener('click', getExtractedRandomBreakfastRecipes)
-	imgTwo.addEventListener('click', getExtractedRandomLunchRecipes)
-	imgThree.addEventListener('click', getExtractedRandomDinnerRecipes)
 	newRecipe.classList.add('hidden')
 	imgDiv.innerHTML = " "
 	imgDiv.classList.remove('card')
 }
 
 function getNewRecipe(event) {
+	nixCounter = 0
 	container.classList.remove('oops-height')
 	h1.classList.add('hidden')
 	header.classList.remove('hidden')
@@ -312,8 +309,44 @@ function getNutrition(data) {
 		},
 
 		error: function() {
-			noRecipe()
+			if (nixCounter < 0) {
+				const li1 = document.createElement('li')
+				li1.classList.add('list-group-item')
+				li1.textContent = `Serving Qty: ${nixData['serving_gty']}`
+				const li2 = document.createElement('li')
+				li2.classList.add('list-group-item')
+				li1.textContent = `Calories: ${nixData['calories']}`
+				const li3 = document.createElement('li')
+				li3.classList.add('list-group-item')
+				li1.textContent = `:Total Fat ${nixData['total-fat']}`
+				const li4 = document.createElement('li')
+				li4.classList.add('list-group-item')
+				li1.textContent = `Total Carbs: ${nixData['total-carbs']}`
+				const li5 = document.createElement('li')
+				li5.classList.add('list-group-item')
+				li1.textContent = `Protein: ${nixData['protein']}`
+				const li6 = document.createElement('li')
+				li6.classList.add('list-group-item')
+				li1.textContent = `Sugar: ${nixData['sugar']}`
+				const li7 = document.createElement('li')
+				li7.classList.add('list-group-item')
+				li1.textContent = `Sodium: ${nixData['sodium']}`
+				const li8 = document.createElement('li')
+				li8.classList.add('list-group-item')
+				li1.textContent = `Dietary Fiber: ${nixData['dietary-fiber']}`
+				ulappenChild(li1)
+				ulappendChild(li2)
+				ulappendChild(li3)
+				ul.appendChild(li4)
+				ul.appendChild(li5)
+				ul.appendChild(li6)
+				ul.appendChild(li7)
+				ul.appendChild(li8)
+				modalContent.appendChild(ul)
+				modalButton.classList.remove('hidden')
+				buttonNutrition.addEventListener('click', getNutrition)
 			stop()
+			}
 		},
 		success: function(data) {
 			nutData = data.branded[0].nix_item_id
@@ -340,10 +373,10 @@ function getNix(data) {
 	},
 
 	error: function () {
-		noRecipe()
 		stop()
 	},
 	success: function (data) {
+		nixCounter++
 		nixData = data.foods
 		ul.classList.add('d-flex', 'flex-column')
 		ul.classList.add('list-group')
@@ -352,7 +385,7 @@ function getNix(data) {
 			nixData['serving_gty'] = serving
 			const li1 = document.createElement('li')
 			li1.classList.add('list-group-item')
-			li1.textContent = `Serving Quanity: ${serving}`
+			li1.textContent = `Serving Qty: ${serving}`
 			let calories = nixData[i].nf_calories
 			nixData['calories'] = calories
 			const li2 = document.createElement('li')
@@ -402,15 +435,16 @@ function getNix(data) {
 		}
 		stop()
 	}
-})
+  })
 }
+
 
 
 modalButton.addEventListener('click', function () {
 	modalContent.classList.add('hidden')
 	modalOverlay.classList.add('hidden')
 	modalButton.classList.add('hidden')
-	modalOverlay.classList.add('modalHeightBeforeReveal')
+	modalOverlay.classList.add('modal-b-reveal')
 	ul.innerHTML = " "
 	buttonNutrition.addEventListener('click', getNutrition)
 });
@@ -430,4 +464,14 @@ function spin() {
 function stop() {
 	spinner.classList.add('invisible')
 	clearInterval(timeToSpin)
+}
+
+function handleEvent(event) {
+	if(event.target.id === "img1") {
+		getExtractedRandomBreakfastRecipes()
+	} if (event.target.id === "img2") {
+		getExtractedRandomLunchRecipes()
+	} if (event.target.id === "img3") {
+		getExtractedRandomDinnerRecipes()
+	}
 }
