@@ -42,6 +42,7 @@ container.addEventListener('click', handleEvent)
 
 
 function renderHomePage() {
+	h1.innerHTML = " "
 	imgContainer.innerHTML = " "
 	imgRow.innerHTML = " "
 	const divRowOne = document.createElement('div')
@@ -135,13 +136,12 @@ function renderRecipeIngredientPage(data) {
 	const ul = document.createElement('ul')
 	ul.id = "list"
 	ul.innerText = " "
+	if (arrayInstructions[0].step === "Go to my blog for full instructions: http://gourmandelle.com/chocolate-chip-coconut-muffins/") {
+		let a = document.createElement('a')
+		a.textContent = "Go to blog for full instructions"
+		a.href = "http://gourmandelle.com/chocolate-chip-coconut-muffins/"
+		ul.appendChild(a)
 	for (let i = 0; i < pageInstructions.length; i++) {
-		if (pageInstructions === "Go to my blog for full instructions: http://gourmandelle.com/chocolate-chip-coconut-muffins/") {
-			let a = document.createElement('a')
-			a.textContent = "Click Here"
-			a.href = "http://gourmandelle.com/chocolate-chip-coconut-muffins/"
-			ul.appendChild(a)
-		} else {
 			const li = document.createElement('li')
 			li.textContent = pageInstructions[i]
 			li.classList.add('list-group-item')
@@ -284,15 +284,6 @@ function getNewRecipe(event) {
 	header.classList.remove('hidden')
 	choose.classList.remove('hidden')
 	imgDiv.classList.remove('hidden')
-	if (currentRecipe === 1) {
-		getExtractedRandomBreakfastRecipes()
-	}
-	if (currentRecipe === 2) {
-		getExtractedRandomLunchRecipes()
-	}
-	if (currentRecipe === 3) {
-		getExtractedRandomDinnerRecipes()
-	}
 }
 
 function getNutrition(data) {
@@ -455,7 +446,7 @@ function noRecipe() {
 	header.classList.add('hidden')
 	choose.classList.add('hidden')
 	imgDiv.classList.add('hidden')
-	noRecipeButton.addEventListener('click', getNewRecipe)
+	noRecipeButton.addEventListener('click', renderHomePage)
 }
 
 function spin() {
