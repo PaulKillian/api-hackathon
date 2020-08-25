@@ -38,13 +38,8 @@ h3 {
 	border-width: 5px !important;
 }
 
-img:hover {
-	-webkit-transform: scale(1.02);
-	transform: scale(1.02);
-	-webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
-	-webkit-transform: scale(1.02);
-	transform: scale(1.02);
+.oops-height {
+	height: 100vh;
 }
 
 .cursor {
@@ -59,6 +54,10 @@ img:hover {
 	display: none
 }
 
+button:hover {
+  background-color: rgb(214, 167, 124);
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -66,7 +65,8 @@ img:hover {
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 86%;
+	width: 97.8%;
+	background-color: rgba(0,0,0,0.4);
 }
 
 .modal-content {
@@ -74,10 +74,6 @@ img:hover {
   width: 50%;
 }
 
-.modalHeightBeforeReveal {
-	height: 1%
-}
-
-button:hover {
-  background-color: rgb(214, 167, 124);
+.modal-b-reveal {
+	height: 0%
 }

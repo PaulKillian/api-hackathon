@@ -18,6 +18,11 @@ const modalContent = document.getElementById('modal-content')
 const modalButton = document.getElementById('modal-button')
 const spinner = document.querySelector('.spinner-border')
 const ul = document.querySelector('ul')
+const h1 = document.getElementById('oops')
+const choose = document.getElementById('choose')
+const noRecipeButton = document.getElementById('no-recipe')
+const imgRow = document.getElementById('img-row')
+const imgContainer = document.getElementById('img-container')
 let timeToSpin = null
 let currentRecipe = 0
 let nutritionURL = "https://trackapi.nutritionix.com/v2/search/instant?query="
@@ -36,7 +41,7 @@ let nixData = {}
 function renderHomePage() {
 	main.innerHTML = " "
 	const divRowOne = document.createElement('div')
-	divRowOne.classList.add('card', "row", "justify-content-center")
+	divRowOne.classList.add('card')
 	divRowOne.setAttribute("width", "10rem")
 	const pforRecipeImg1 = document.createElement('h3')
 	pforRecipeImg1.textContent = "Breakfast"
@@ -47,7 +52,7 @@ function renderHomePage() {
 	divRowTwo.classList.add("row", "justify-content-center")
 	const divRowThree = document.createElement('div')
 	divRowThree.setAttribute("width", "10rem")
-	divRowThree.classList.add("card", "row", "justify-content-center")
+	divRowThree.classList.add("card")
 	const pforRecipeImg2 = document.createElement('h3')
 	pforRecipeImg2.textContent = "Lunch"
 	pforRecipeImg2.classList.add('text-center')
@@ -56,7 +61,7 @@ function renderHomePage() {
 	const divRowFour = document.createElement('div')
 	divRowFour.classList.add("row", "justify-content-center")
 	const divRowFive = document.createElement('div')
-	divRowFive.classList.add("card", "row", "justify-content-center")
+	divRowFive.classList.add("card")
 	divRowFive.setAttribute("width", "10rem")
 	const pforRecipeImg3 = document.createElement('h3')
 	pforRecipeImg3.textContent = "Dinner"
@@ -66,7 +71,7 @@ function renderHomePage() {
 	const divRowSix = document.createElement('div')
 	divRowSix.classList.add("row", "justify-content-center")
 	const imgOne = document.createElement('img')
-	imgOne.classList.add('card-img-top', 'top-shadow',)
+	imgOne.classList.add('card-img-top', 'top-shadow', 'lg-col-7')
 	imgOne.id = "img1"
 	imgOne.src = "https://spoonacular.com/recipeImages/639114-556x370.jpg"
 	const imgTwo = document.createElement('img')
@@ -87,24 +92,23 @@ function renderHomePage() {
 	imgTwo.addEventListener('click', getExtractedRandomLunchRecipes)
 	imgThree.addEventListener('click', getExtractedRandomDinnerRecipes)
 
-	main.appendChild(divRowOne)
+	imgRow.appendChild(divRowOne)
 	divRowOne.appendChild(imgOne)
 	divRowOne.appendChild(recipeCardBody1)
 	recipeCardBody1.appendChild(pforRecipeImg1)
-	main.appendChild(divRowTwo)
+	imgRow.appendChild(divRowTwo)
 
-	main.appendChild(divRowThree)
+	imgRow.appendChild(divRowThree)
 	divRowThree.appendChild(imgTwo)
 	divRowThree.appendChild(recipeCardBody3)
 	recipeCardBody3.appendChild(pforRecipeImg2)
-	main.appendChild(divRowFour)
+	imgRow.appendChild(divRowFour)
 
-	main.appendChild(divRowFive)
+	imgRow.appendChild(divRowFive)
 	divRowFive.appendChild(imgThree)
 	divRowFive.appendChild(recipeCardBody5)
 	recipeCardBody5.appendChild(pforRecipeImg3)
-	main.appendChild(divRowSix)
-
+	imgRow.appendChild(divRowSix)
 }
 
 renderHomePage()
@@ -113,6 +117,7 @@ renderHomePage()
 function renderRecipeIngredientPage(data) {
 	main.innerHTML = " "
 	imgDiv.innerHTML = " "
+	imgContainer.innerHTML = " "
 	extractRecipes = data
 	arrayInstructions = extractRecipes.recipes[0].analyzedInstructions[0].steps
 	arrayIngredients = extractRecipes.recipes[0].extendedIngredients
@@ -123,18 +128,26 @@ function renderRecipeIngredientPage(data) {
 		if (extractRecipes.recipes[0].analyzedInstructions[0] === undefined) {
 			h3R.innerHTML = " "
 			hereIsRecipe.textContent = "Oops! Something went wrong."
+		} else {
+			pageInstructions.push(arrayInstructions[i].step)
 		}
-		pageInstructions.push(arrayInstructions[i].step)
 	}
 
 	const ul = document.createElement('ul')
 	ul.id = "list"
 	ul.innerText = " "
 	for (let i = 0; i < pageInstructions.length; i++) {
-		const li = document.createElement('li')
-		li.textContent = pageInstructions[i]
-		li.classList.add('list-group-item')
-		ul.appendChild(li)
+		if (pageInstructions === "Go to my blog for full instructions: http://gourmandelle.com/chocolate-chip-coconut-muffins/") {
+			let a = document.createElement('a')
+			a.textContent = "Click Here"
+			a.href = "http://gourmandelle.com/chocolate-chip-coconut-muffins/"
+			ul.appendChild(a)
+		} else {
+			const li = document.createElement('li')
+			li.textContent = pageInstructions[i]
+			li.classList.add('list-group-item')
+			ul.appendChild(li)
+		}
 	}
 	main.classList.remove('flex')
 	main.classList.add('d-flex')
@@ -142,7 +155,7 @@ function renderRecipeIngredientPage(data) {
 	h2I.textContent = " "
 	h2I.classList.add('w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
 	h2R.textContent = "Here are your ingredients"
-	h2R.classList.add('pt-1', 'card-bg-color')
+	h2R.classList.add('pt-1', 'pb-2', 'card-bg-color')
 	ul.classList.add('list-group', 'shadow', 'pt-2')
 	ul.appendChild(h2R)
 
@@ -153,22 +166,19 @@ function renderRecipeIngredientPage(data) {
 		ul.appendChild(li)
 	}
 
+	const imgDivContainer = document.getElementById("img-div-container")
 	const image = document.createElement('img')
 	image.src = extractRecipes.recipes[0].image
 	image.alt = "Image of Recipe"
-	image.classList.add("card-img-top", "mt-10", "mb-3", "img-thumbnail", 'top-shadow', 'card-bg-color')
+	image.classList.add("card-img-top", "mb-2", 'top-shadow', 'card-bg-color')
 	imgDiv.classList.add('card')
 	imgDiv.setAttribute("width", "18rem")
 	const recipeCardBody = document.createElement('div')
 	const h3 = document.createElement('h3')
-	h3.classList.add('card-title')
+	h3.classList.add('card-title', 'text-center')
 	h3.textContent = extractRecipes.recipes[0].title
 	recipeCardBody.classList.add('card-body', 'card-bg-color', 'm-0')
 	nutritionURL += extractRecipes.recipes[0].title
-	imgDiv.appendChild(image)
-	imgDiv.appendChild(recipeCardBody)
-	imgDiv.appendChild(ul)
-	recipeCardBody.appendChild(h3)
 
 	buttonHome.classList.remove("hidden")
 	buttonNutrition.classList.remove("hidden")
@@ -181,6 +191,13 @@ function renderRecipeIngredientPage(data) {
 	pageIngredients = []
 	pageInstructions = []
 	spinner.classList.add('invisible')
+	container.classList.remove('oops-height')
+
+	imgDivContainer.appendChild(imgDiv)
+	imgDiv.appendChild(image)
+	imgDiv.appendChild(recipeCardBody)
+	imgDiv.appendChild(ul)
+	recipeCardBody.appendChild(h3)
 
 	stop()
 }
@@ -218,6 +235,7 @@ function getExtractedRandomLunchRecipes() {
 			stop()
 		},
 		success: function (data) {
+
 				renderRecipeIngredientPage(data)
 		}
 	})
@@ -264,11 +282,16 @@ function homeFromRecipePage(event) {
 }
 
 function getNewRecipe(event) {
+	container.classList.remove('oops-height')
+	h1.classList.add('hidden')
+	header.classList.remove('hidden')
+	choose.classList.remove('hidden')
+	imgDiv.classList.remove('hidden')
 	if (currentRecipe === 1) {
-		getExtractedRandomDessertRecipes()
+		getExtractedRandomBreakfastRecipes()
 	}
 	if (currentRecipe === 2) {
-		getExtractedRandomBreakfastRecipes()
+		getExtractedRandomLunchRecipes()
 	}
 	if (currentRecipe === 3) {
 		getExtractedRandomDinnerRecipes()
@@ -276,6 +299,7 @@ function getNewRecipe(event) {
 }
 
 function getNutrition(data) {
+	buttonNutrition.removeEventListener('click', getNutrition)
 	timeToSpin = setInterval(spin, 1000)
 	$.ajax({
 		type: "GET",
@@ -294,7 +318,7 @@ function getNutrition(data) {
 		success: function(data) {
 			nutData = data.branded[0].nix_item_id
 			nixURL += nutData
-			modalOverlay.classList.remove('hidden', 'modalHeightBeforeReveal')
+			modalOverlay.classList.remove('hidden', 'modal-b-reveal')
 			modalContent.classList.remove('hidden')
 			stop()
 			getNix()
@@ -388,20 +412,16 @@ modalButton.addEventListener('click', function () {
 	modalButton.classList.add('hidden')
 	modalOverlay.classList.add('modalHeightBeforeReveal')
 	ul.innerHTML = " "
+	buttonNutrition.addEventListener('click', getNutrition)
 });
 
 function noRecipe() {
-	container.innerHTML = " "
-	const headerH1 = document.createElement('h1')
-	headerH1.classList.add('bg-dark', 'text-center')
-	headerH1.textContent = "Oop! Something went wrong. Please choose another recipe!"
-	container.appendChild(headerH1)
-	const recipeWrong = document.createElement('button')
-	recipeWrong.type = "button"
-	recipeWrong.classList.add('btn', 'card-bg-color')
-	recipeWrong.textContent = "Get New Recipe"
-	recipeWrong.addEventListener('click', getNewRecipe)
-	headerH1.appendChild(recipeWrong)
+	h1.classList.remove('hidden')
+	container.classList.add('oops-height')
+	header.classList.add('hidden')
+	choose.classList.add('hidden')
+	imgDiv.classList.add('hidden')
+	noRecipeButton.addEventListener('click', getNewRecipe)
 }
 
 function spin() {
