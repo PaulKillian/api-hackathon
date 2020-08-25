@@ -43,7 +43,6 @@ container.addEventListener('click', handleEvent)
 
 
 function renderHomePage() {
-	h1.innerHTML = " "
 	imgContainer.innerHTML = " "
 	imgRow.innerHTML = " "
 	const divRowOne = document.createElement('div')
@@ -442,12 +441,14 @@ modalButton.addEventListener('click', function () {
 });
 
 function noRecipe() {
+	container.classList.add('hidden')
 	h1.classList.remove('hidden')
 	container.classList.add('oops-height')
 	header.classList.add('hidden')
 	choose.classList.add('hidden')
 	imgDiv.classList.add('hidden')
-	noRecipeButton.addEventListener('click', renderHomePage)
+	header.classList.remove('hidden')
+	noRecipeButton.addEventListener('click', handleEvent)
 }
 
 function spin() {
@@ -459,10 +460,12 @@ function stop() {
 }
 
 function handleEvent(event) {
-	if (event.target.id === "img1") {
+	container.classList.remove('hidden')
+	h1.classList.add('hidden')
+	if (event.target.id === "img1" ) {
 		currentImg = "img1"
 		getExtractedRandomBreakfastRecipes()
-	} else if (event.target.id === "new-recipe" && currentImg === "img1") {
+	} else if (event.target.id === "new-recipe" && currentImg === "img1" || event.target.id === "no-recipe" && currentImg === "img1") {
 			getExtractedRandomBreakfastRecipes()
 	} if (event.target.id === "img2" || currentImg === "img2") {
 		currentImg = "img2"
