@@ -38,6 +38,7 @@ let nutData = null
 let nixURL = "https://trackapi.nutritionix.com/v2/search/item?nix_item_id="
 let nixData = {}
 let nixCounter = 0
+let currentImg = null
 container.addEventListener('click', handleEvent)
 
 
@@ -184,7 +185,6 @@ function renderRecipeIngredientPage(data) {
 	newRecipe.classList.remove("hidden")
 	buttonHome.addEventListener('click', homeFromRecipePage)
 	buttonNutrition.addEventListener('click', getNutrition)
-	newRecipe.addEventListener('click', getNewRecipe)
 
 	header.scrollIntoView();
 	pageIngredients = []
@@ -458,11 +458,16 @@ function stop() {
 }
 
 function handleEvent(event) {
-	if(event.target.id === "img1") {
+	if(event.target.id === "img1" || currentImg === "img1") {
+		currentImg = "img1"
 		getExtractedRandomBreakfastRecipes()
-	} if (event.target.id === "img2") {
+	} if (event.target.id === "img2" || currentImg === "img2") {
+		currentImg = "img2"
 		getExtractedRandomLunchRecipes()
-	} if (event.target.id === "img3") {
+	} if (event.target.id === "img3" || currentImg === "img3") {
+		currentImg = "img3"
 		getExtractedRandomDinnerRecipes()
+	} if (event.target.id === "rew-recipe") {
+		getNewRecipe()
 	}
 }
