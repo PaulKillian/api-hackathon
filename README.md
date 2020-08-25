@@ -1,37 +1,20 @@
 ## Instant Recipe
 
-You can use the [editor on GitHub](https://github.com/PaulKillian/api-hackathon/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+An application for busy people to get instant recipes and ingredients.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+https://paulkillian.github.io/instant-recipe/.
 
-### Markdown
+### Technologies Used
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+HTML, CSS, JavaScript, JQuery, BootStrap and GoogleFonts
 
-```markdown
-Syntax highlighted code block
+# Features
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
+- User can choose a breakfast, lunch or dinner recipe and they are given a random recipe
+- User can view recipe and ingredients
+- Usr can refresh the page to recieve a new recipe
+- User can view the nutrition of the recipe via a modal
+- User and navigate back to homepage
 
 [Link](url) and ![Image](src)
-```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/PaulKillian/api-hackathon/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
