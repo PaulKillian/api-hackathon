@@ -23,6 +23,7 @@ const choose = document.getElementById('choose')
 const noRecipeButton = document.getElementById('no-recipe')
 const imgRow = document.getElementById('img-row')
 const imgContainer = document.getElementById('img-container')
+let prioritiesNewRecipe = null
 let timeToSpin = null
 let currentRecipe = 0
 let nutritionURL = "https://trackapi.nutritionix.com/v2/search/instant?query="
@@ -38,11 +39,11 @@ let nutData = null
 let nixURL = "https://trackapi.nutritionix.com/v2/search/item?nix_item_id="
 let nixData = {}
 let nixCounter = 0
+let currentImg = null
 container.addEventListener('click', handleEvent)
 
 
 function renderHomePage() {
-	h1.innerHTML = " "
 	imgContainer.innerHTML = " "
 	imgRow.innerHTML = " "
 	const divRowOne = document.createElement('div')
@@ -126,8 +127,7 @@ function renderRecipeIngredientPage(data) {
 	}
 	for (let i = 0; i < arrayInstructions.length; i++) {
 		if (extractRecipes.recipes[0].analyzedInstructions[0] === undefined) {
-			h3R.innerHTML = " "
-			hereIsRecipe.textContent = "Oops! Something went wrong."
+			noRecipe()
 		} else {
 			pageInstructions.push(arrayInstructions[i].step)
 		}
@@ -141,13 +141,14 @@ function renderRecipeIngredientPage(data) {
 		a.textContent = "Go to blog for full instructions"
 		a.href = "http://gourmandelle.com/chocolate-chip-coconut-muffins/"
 		ul.appendChild(a)
+  }
 	for (let i = 0; i < pageInstructions.length; i++) {
 			const li = document.createElement('li')
 			li.textContent = pageInstructions[i]
 			li.classList.add('list-group-item')
 			ul.appendChild(li)
 		}
-	}
+
 	main.classList.remove('flex')
 	main.classList.add('d-flex')
 	h3R.classList.add('pt-2')
@@ -169,7 +170,7 @@ function renderRecipeIngredientPage(data) {
 	const image = document.createElement('img')
 	image.src = extractRecipes.recipes[0].image
 	image.alt = "Image of Recipe"
-	image.classList.add("card-img-top", "mb-2", 'top-shadow', 'card-bg-color')
+	image.classList.add("card-img-top", "mb-2", 'top-shadow', 'card-bg-color', 'w-100')
 	imgDiv.classList.add('card')
 	imgDiv.setAttribute("width", "18rem")
 	const recipeCardBody = document.createElement('div')
@@ -184,7 +185,6 @@ function renderRecipeIngredientPage(data) {
 	newRecipe.classList.remove("hidden")
 	buttonHome.addEventListener('click', homeFromRecipePage)
 	buttonNutrition.addEventListener('click', getNutrition)
-	newRecipe.addEventListener('click', getNewRecipe)
 
 	header.scrollIntoView();
 	pageIngredients = []
@@ -441,12 +441,14 @@ modalButton.addEventListener('click', function () {
 });
 
 function noRecipe() {
+	container.classList.add('hidden')
 	h1.classList.remove('hidden')
 	container.classList.add('oops-height')
 	header.classList.add('hidden')
 	choose.classList.add('hidden')
 	imgDiv.classList.add('hidden')
-	noRecipeButton.addEventListener('click', renderHomePage)
+	header.classList.remove('hidden')
+	noRecipeButton.addEventListener('click', handleEvent)
 }
 
 function spin() {
@@ -457,12 +459,34 @@ function stop() {
 	clearInterval(timeToSpin)
 }
 
+
 function handleEvent(event) {
-	if(event.target.id === "img1") {
+	console.log(event)
+	let event1 = event
+	if (event.target.id === "new-recipe" || event.target.id === "buttonNutrition" || event.target.id === "buttonHome" ) {
+		newRecipe.disabled = true
+		setTimeout(function (){newRecipe.disabled = false;}, 1000);
+	}
+	if (event.path[0].id === "button-home" || event.currentTarget = "div#container.container.border-t.col-sm-12.col-md-12.col-lg-12") {
+		renderHomePage()
+		return
+	}
+	container.classList.remove('hidden')
+	h1.classList.add('hidden')
+	if (event.target.id === "img1" || currentImg === "img1") {
+		currentImg = "img1"
 		getExtractedRandomBreakfastRecipes()
-	} if (event.target.id === "img2") {
+	} else if (event.target.id === "new-recipe" && currentImg === "img1" || event.target.id === "no-recipe" && currentImg === "img1") {
+			getExtractedRandomBreakfastRecipes()
+	} if (event.target.id === "img2" || currentImg === "img2") {
+		currentImg = "img2"
 		getExtractedRandomLunchRecipes()
-	} if (event.target.id === "img3") {
+	} else if (event.target.id === "new-recipe" && currentImg === "img2" || event.target.id === "no-recipe" && currentImg === "img2") {
+			getExtractedRandomBreakfastRecipes()
+	} if (event.target.id === "img3" || currentImg === "img3") {
+		currentImg = "img3"
 		getExtractedRandomDinnerRecipes()
+	} else if (event.target.id === "new-recipe" && currentImg === "img3" || event.target.id === "no-recipe" && currentImg === "img3") {
+			getExtractedRandomBreakfastRecipes()
 	}
 }
