@@ -16,5 +16,5 @@ HTML, CSS, JavaScript, JQuery, BootStrap and GoogleFonts
 - User can view the nutrition of the recipe via a modal
 - User and navigate back to homepage
 
-[Link](url) and ![Image](src)
+[Link](url) and ![Image](screencapture-file-C-Users-p-lfz-api-hackathon-index-html-2020-08-25-11_36_48)
 
