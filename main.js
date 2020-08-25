@@ -142,13 +142,14 @@ function renderRecipeIngredientPage(data) {
 		a.textContent = "Go to blog for full instructions"
 		a.href = "http://gourmandelle.com/chocolate-chip-coconut-muffins/"
 		ul.appendChild(a)
+  }
 	for (let i = 0; i < pageInstructions.length; i++) {
 			const li = document.createElement('li')
 			li.textContent = pageInstructions[i]
 			li.classList.add('list-group-item')
 			ul.appendChild(li)
 		}
-	}
+
 	main.classList.remove('flex')
 	main.classList.add('d-flex')
 	h3R.classList.add('pt-2')
@@ -170,7 +171,7 @@ function renderRecipeIngredientPage(data) {
 	const image = document.createElement('img')
 	image.src = extractRecipes.recipes[0].image
 	image.alt = "Image of Recipe"
-	image.classList.add("card-img-top", "mb-2", 'top-shadow', 'card-bg-color')
+	image.classList.add("card-img-top", "mb-2", 'top-shadow', 'card-bg-color', 'w-100')
 	imgDiv.classList.add('card')
 	imgDiv.setAttribute("width", "18rem")
 	const recipeCardBody = document.createElement('div')
@@ -458,16 +459,20 @@ function stop() {
 }
 
 function handleEvent(event) {
-	if(event.target.id === "img1" || currentImg === "img1") {
+	if (event.target.id === "img1") {
 		currentImg = "img1"
 		getExtractedRandomBreakfastRecipes()
+	} else if (event.target.id === "new-recipe" && currentImg === "img1") {
+			getExtractedRandomBreakfastRecipes()
 	} if (event.target.id === "img2" || currentImg === "img2") {
 		currentImg = "img2"
+		getExtractedRandomLunchRecipes()
+	} else if (event.target.id === "new-recipe" && currentImg === "img2") {
 		getExtractedRandomLunchRecipes()
 	} if (event.target.id === "img3" || currentImg === "img3") {
 		currentImg = "img3"
 		getExtractedRandomDinnerRecipes()
-	} if (event.target.id === "rew-recipe") {
-		getNewRecipe()
+	} else if (event.target.id === "new-recipe" && currentImg === "img3") {
+		getExtractedRandomDinnerRecipes()
 	}
 }
