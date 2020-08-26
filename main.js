@@ -2,7 +2,6 @@ const container = document.getElementById('container')
 const main = document.querySelector('main')
 const h3R = document.querySelector('h3')
 const h2I = document.querySelector('h2')
-const h2R = document.getElementById('h2R')
 const header = document.getElementById('header')
 const h3Choose = document.getElementById('choose-recipe')
 const section = document.querySelector('section')
@@ -23,7 +22,8 @@ const choose = document.getElementById('choose')
 const noRecipeButton = document.getElementById('no-recipe')
 const imgRow = document.getElementById('img-row')
 const imgContainer = document.getElementById('img-container')
-let ul = document.querySelector('ul')
+const modalUl = document.getElementById('modal-list')
+let ulForRecipeIngredientList = document.getElementById('recipe-ingredient-list')
 let prioritiesNewRecipe = null
 let timeToSpin = null
 let currentRecipe = 0
@@ -93,6 +93,17 @@ function renderHomePage() {
 	imgTwo.style.cursor = "pointer"
 	imgThree.style.cursor = "pointer"
 	const h2One = document.createElement('h3')
+	buttonNutrition.classList.add("hidden")
+	buttonHome.classList.add("hidden")
+	main.classList.remove('d-flex')
+	imgDiv.innerHTML = " "
+	h3Choose.innerHTML = " "
+	hereIsRecipe.innerHTML = " "
+	hereIsRecipe.classList.remove('shadow')
+	hereIsRecipe.innerText = "Choose Your Recipe"
+	newRecipe.classList.add('hidden')
+	imgDiv.innerHTML = " "
+	imgDiv.classList.remove('card')
 
 	imgContainer.appendChild(imgRow)
 	imgRow.appendChild(divRowOne)
@@ -121,6 +132,7 @@ function renderRecipeIngredientPage(data) {
 	imgDiv.innerHTML = " "
 	imgDiv1.innerHTML = " "
 	imgContainer.innerHTML = " "
+	ulForRecipeIngredientList.innerHTML = " "
 	extractRecipes = data
 	if (extractRecipes.recipes[0].analyzedInstructions[0] === undefined) {
 		noRecipe()
@@ -134,22 +146,24 @@ function renderRecipeIngredientPage(data) {
 			pageInstructions.push(arrayInstructions[i].step)
 	}
 
-	ul = document.createElement('ul')
-	ul.id = "list"
-	ul.innerText = " "
+	const ul1 = document.createElement('ul')
+	ul1.id = "list"
+	ul1.innerText = " "
 	if (arrayInstructions[0].step === "Go to my blog for full instructions: http://gourmandelle.com/chocolate-chip-coconut-muffins/") {
 		let a = document.createElement('a')
 		a.textContent = "Go to blog for full instructions"
 		a.href = "http://gourmandelle.com/chocolate-chip-coconut-muffins/"
-		ul.appendChild(a)
+		ulForRecipeIngredientList.appendChild(a)
   }
 	for (let i = 0; i < pageInstructions.length; i++) {
 			const li = document.createElement('li')
 			li.textContent = pageInstructions[i]
 			li.classList.add('list-group-item')
-			ul.appendChild(li)
+			ulForRecipeIngredientList.appendChild(li)
 		}
 
+	const h2R = document.createElement('h2')
+	h2R.classList.add('text-center')
 	main.classList.remove('flex')
 	main.classList.add('d-flex')
 	h3R.classList.add('pt-2')
@@ -157,14 +171,14 @@ function renderRecipeIngredientPage(data) {
 	h2I.classList.add('w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
 	h2R.textContent = "Here are your ingredients"
 	h2R.classList.add('pt-1', 'pb-2', 'card-bg-color')
-	ul.classList.add('list-group', 'shadow', 'pt-2')
-	ul.appendChild(h2R)
+	ulForRecipeIngredientList.classList.add('list-group', 'shadow', 'pt-2')
+	ulForRecipeIngredientList.appendChild(h2R)
 
 	for (let i = 0; i < pageIngredients.length; i++) {
 		const li = document.createElement('li')
 		li.textContent = pageIngredients[i]
 		li.classList.add('list-group-item', 'text-center', 'w-100')
-		ul.appendChild(li)
+		ulForRecipeIngredientList.appendChild(li)
 	}
 
 	const imgDivContainer = document.getElementById("img-div-container")
@@ -178,25 +192,34 @@ function renderRecipeIngredientPage(data) {
 	h3.classList.add('card-title', 'text-center')
 	h3.textContent = extractRecipes.recipes[0].title
 	recipeCardBody.classList.add('card-body', 'card-bg-color', 'm-0')
+	for (let i = 0; i < extractRecipes.recipes[0].title.length; i++) {
+		if (extractRecipes.recipes[0].title === "&") {
+			originalString = extractRecipes.recipes[0].title
+			string1 = originalString.replace('&', '')
+			string2 = originalString.replace('-', '')
+			string3 = originalString.replace('/', ' ')
+			string4 = originalString.replace(',', '')
+			nutritionURL += `${string1} ${string2} ${string3} ${string4}`
+		}
+	}
 	nutritionURL += extractRecipes.recipes[0].title
+
+	spinner.classList.add('invisible')
+	container.classList.remove('oops-height')
+	pageIngredients = []
+	pageInstructions = []
 
 	buttonHome.classList.remove("hidden")
 	buttonNutrition.classList.remove("hidden")
 	newRecipe.classList.remove("hidden")
-	buttonHome.addEventListener('click', homeFromRecipePage)
-
 	header.scrollIntoView();
-	pageIngredients = []
-	pageInstructions = []
-	spinner.classList.add('invisible')
-	container.classList.remove('oops-height')
+	imgDiv1.classList.add('card')
 
-  imgDiv1.classList.add('card')
 	imgDivContainer.appendChild(imgDiv)
 	imgDiv.appendChild(imgDiv1)
 	imgDiv1.appendChild(image)
 	imgDiv1.appendChild(recipeCardBody)
-	imgDiv1.appendChild(ul)
+	imgDiv1.appendChild(ulForRecipeIngredientList)
 	recipeCardBody.appendChild(h3)
 
 	stop()
@@ -262,24 +285,6 @@ function getExtractedRandomDinnerRecipes(event) {
 	})
 }
 
-function homeFromRecipePage(event) {
-	renderHomePage()
-	buttonNutrition.classList.add("hidden")
-	buttonHome.classList.add("hidden")
-	main.classList.remove('d-flex')
-	imgDiv.innerHTML = " "
-	h3Choose.innerHTML = " "
-	hereIsRecipe.innerHTML = " "
-	hereIsRecipe.classList.remove('shadow')
-	hereIsRecipe.innerText = "Choose Your Recipe"
-	const imgOne = document.getElementById('img1')
-	const imgTwo = document.getElementById('img2')
-	const imgThree = document.getElementById('img3')
-	newRecipe.classList.add('hidden')
-	imgDiv.innerHTML = " "
-	imgDiv.classList.remove('card')
-}
-
 function getNewRecipe(event) {
 	nixCounter = 0
 	container.classList.remove('oops-height')
@@ -302,49 +307,11 @@ function getNutrition(data) {
 		},
 
 		error: function() {
-			if (nixCounter < 0) {
-				const li1 = document.createElement('li')
-				li1.classList.add('list-group-item')
-				li1.textContent = `Serving Qty: ${nixData['serving_gty']}`
-				const li2 = document.createElement('li')
-				li2.classList.add('list-group-item')
-				li1.textContent = `Calories: ${nixData['calories']}`
-				const li3 = document.createElement('li')
-				li3.classList.add('list-group-item')
-				li1.textContent = `:Total Fat ${nixData['total-fat']}`
-				const li4 = document.createElement('li')
-				li4.classList.add('list-group-item')
-				li1.textContent = `Total Carbs: ${nixData['total-carbs']}`
-				const li5 = document.createElement('li')
-				li5.classList.add('list-group-item')
-				li1.textContent = `Protein: ${nixData['protein']}`
-				const li6 = document.createElement('li')
-				li6.classList.add('list-group-item')
-				li1.textContent = `Sugar: ${nixData['sugar']}`
-				const li7 = document.createElement('li')
-				li7.classList.add('list-group-item')
-				li1.textContent = `Sodium: ${nixData['sodium']}`
-				const li8 = document.createElement('li')
-				li8.classList.add('list-group-item')
-				li1.textContent = `Dietary Fiber: ${nixData['dietary-fiber']}`
-				ulappenChild(li1)
-				ulappendChild(li2)
-				ulappendChild(li3)
-				ul.appendChild(li4)
-				ul.appendChild(li5)
-				ul.appendChild(li6)
-				ul.appendChild(li7)
-				ul.appendChild(li8)
-				modalContent.appendChild(ul)
-				modalButton.classList.remove('hidden')
 			stop()
-			}
 		},
 		success: function(data) {
 			nutData = data.branded[0].nix_item_id
 			nixURL += nutData
-			modalOverlay.classList.remove('hidden', 'modal-b-reveal')
-			modalContent.classList.remove('hidden')
 			stop()
 			getNix()
 		}
@@ -364,14 +331,55 @@ function getNix(data) {
 			"x-app-key": "f709403f9386d771a17c9f79935a51e9"
 	},
 
-	error: function () {
+	error: function() {
+		if (nixCounter > 0) {
+			modalUl.innerHTML = " "
+			modalUl.classList.add('d-flex', 'flex-column')
+			modalUl.classList.add('list-group')
+			const li1 = document.createElement('li')
+			li1.classList.add('list-group-item')
+			li1.textContent = `Serving Qty: ${nixData['serving_gty']}`
+			const li2 = document.createElement('li')
+			li2.classList.add('list-group-item')
+			li2.textContent = `Calories: ${nixData['calories']}`
+			const li3 = document.createElement('li')
+			li3.classList.add('list-group-item')
+			li3.textContent = `Total Fat ${nixData['total-fat']}`
+			const li4 = document.createElement('li')
+			li4.classList.add('list-group-item')
+			li4.textContent = `Total Carbs: ${nixData['total-carbs']}`
+			const li5 = document.createElement('li')
+			li5.classList.add('list-group-item')
+			li5.textContent = `Protein: ${nixData['protein']}`
+			const li6 = document.createElement('li')
+			li6.classList.add('list-group-item')
+			li6.textContent = `Sugar: ${nixData['sugars']}`
+			const li7 = document.createElement('li')
+			li7.classList.add('list-group-item')
+			li7.textContent = `Sodium: ${nixData['sodium']}`
+			const li8 = document.createElement('li')
+			li8.classList.add('list-group-item')
+			li8.textContent = `Dietary Fiber: ${nixData['dietary-fiber']}`
+			modalUl.appendChild(li1)
+			modalUl.appendChild(li2)
+			modalUl.appendChild(li3)
+			modalUl.appendChild(li4)
+			modalUl.appendChild(li5)
+			modalUl.appendChild(li6)
+			modalUl.appendChild(li7)
+			modalUl.appendChild(li8)
+			modalContent.appendChild(modalUl)
+			modalOverlay.classList.remove('modal-b-reveal')
+			modalButton.classList.remove('hidden')
+			modalContent.classList.remove('hidden')
 		stop()
+		}
 	},
 	success: function (data) {
 		nixCounter++
 		nixData = data.foods
-		ul.classList.add('d-flex', 'flex-column')
-		ul.classList.add('list-group')
+		modalUl.classList.add('d-flex', 'flex-column')
+		modalUl.classList.add('list-group')
 		for (let i = 0; i < nixData.length; i++) {
 			let serving = nixData[i].serving_qty
 			nixData['serving_gty'] = serving
@@ -413,16 +421,18 @@ function getNix(data) {
 			const li8 = document.createElement('li')
 			li8.classList.add('list-group-item')
 			li8.textContent = `Dietary Fiber: ${dietaryFiber}`
-			ul.appendChild(li1)
-			ul.appendChild(li2)
-			ul.appendChild(li3)
-			ul.appendChild(li4)
-			ul.appendChild(li5)
-			ul.appendChild(li6)
-			ul.appendChild(li7)
-			ul.appendChild(li8)
-			modalContent.appendChild(ul)
+			modalUl.appendChild(li1)
+			modalUl.appendChild(li2)
+			modalUl.appendChild(li3)
+			modalUl.appendChild(li4)
+			modalUl.appendChild(li5)
+			modalUl.appendChild(li6)
+			modalUl.appendChild(li7)
+			modalUl.appendChild(li8)
+			modalContent.appendChild(modalUl)
+			modalOverlay.classList.remove('modal-b-reveal')
 			modalButton.classList.remove('hidden')
+			modalContent.classList.remove('hidden')
 		}
 		stop()
 	}
@@ -436,7 +446,7 @@ modalButton.addEventListener('click', function () {
 	modalOverlay.classList.add('hidden')
 	modalButton.classList.add('hidden')
 	modalOverlay.classList.add('modal-b-reveal')
-	ul.innerHTML = " "
+	modalUl.innerHTML = " "
 });
 
 function noRecipe() {
@@ -460,11 +470,9 @@ function stop() {
 
 
 function handleEvent(event) {
-	console.log(event)
-	let event1 = event
 	container.classList.remove('hidden')
 	h1.classList.add('hidden')
-	if (event.target.id !== "new-recipe" && event.target.id !== "no-recipe" && event.target.id !== "button-nutrition" && event.target.id !== "buttonHome" && event.target.id !== "img1" && event.target.id !== "img2" && event.target.id !== "img3") {
+	if (event.target.id !== "new-recipe" && event.target.id !== "no-recipe" && event.target.id !== "button-nutrition" && event.target.id !== "button-home" && event.target.id !== "img1" && event.target.id !== "img2" && event.target.id !== "img3") {
 		return
 	}
 	if (event.target.id === "new-recipe" || event.target.id === "buttonNutrition" || event.target.id === "buttonHome" ) {
@@ -494,4 +502,5 @@ function handleEvent(event) {
 	} else if (event.target.id === "new-recipe" && currentImg === "img3" || event.target.id === "no-recipe" && currentImg === "img3") {
 			getExtractedRandomBreakfastRecipes()
 	}
+	stop()
 }
