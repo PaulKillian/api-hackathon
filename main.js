@@ -192,17 +192,17 @@ function renderRecipeIngredientPage(data) {
 	h3.classList.add('card-title', 'text-center')
 	h3.textContent = extractRecipes.recipes[0].title
 	recipeCardBody.classList.add('card-body', 'card-bg-color', 'm-0')
-	for (let i = 0; i < extractRecipes.recipes[0].title.length; i++) {
-		if (extractRecipes.recipes[0].title === "&") {
-			originalString = extractRecipes.recipes[0].title
-			string1 = originalString.replace('&', '')
-			string2 = originalString.replace('-', '')
-			string3 = originalString.replace('/', ' ')
-			string4 = originalString.replace(',', '')
-			nutritionURL += `${string1} ${string2} ${string3} ${string4}`
-		}
-	}
 	nutritionURL += extractRecipes.recipes[0].title
+	if (nutritionURL.indexOf('&')) {
+		originalString = extractRecipes.recipes[0].title
+		string1 = originalString.replace('&', '')
+		string2 = string1.replace('-', '')
+		string3 = string2.replace('-', '')
+		string4 = string3.replace('/', ' ')
+		string5 = string4.replace('/', ' ')
+		string6 = string5.replace(',', '')
+		nutritionURL += `${string6}`
+	}
 
 	spinner.classList.add('invisible')
 	container.classList.remove('oops-height')
