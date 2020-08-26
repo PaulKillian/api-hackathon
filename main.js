@@ -7,6 +7,7 @@ const header = document.getElementById('header')
 const h3Choose = document.getElementById('choose-recipe')
 const section = document.querySelector('section')
 const imgDiv = document.getElementById('img-div')
+const imgDiv1 = document.getElementById('img-div1')
 const divList = document.getElementById('id')
 const buttonHome = document.getElementById('button-home')
 const buttonNutrition = document.getElementById('button-nutrition')
@@ -17,12 +18,12 @@ const modalOverlay = document.querySelector('.modal-overlay')
 const modalContent = document.getElementById('modal-content')
 const modalButton = document.getElementById('modal-button')
 const spinner = document.querySelector('.spinner-border')
-const ul = document.querySelector('ul')
 const h1 = document.getElementById('oops')
 const choose = document.getElementById('choose')
 const noRecipeButton = document.getElementById('no-recipe')
 const imgRow = document.getElementById('img-row')
 const imgContainer = document.getElementById('img-container')
+let ul = document.querySelector('ul')
 let prioritiesNewRecipe = null
 let timeToSpin = null
 let currentRecipe = 0
@@ -118,22 +119,22 @@ function renderRecipeIngredientPage(data) {
 	nixCounter = 0
 	main.innerHTML = " "
 	imgDiv.innerHTML = " "
+	imgDiv1.innerHTML = " "
 	imgContainer.innerHTML = " "
 	extractRecipes = data
+	if (extractRecipes.recipes[0].analyzedInstructions[0] === undefined) {
+		noRecipe()
+	}
 	arrayInstructions = extractRecipes.recipes[0].analyzedInstructions[0].steps
 	arrayIngredients = extractRecipes.recipes[0].extendedIngredients
 	for (let i = 0; i < arrayIngredients.length; i++) {
 		pageIngredients.push(arrayIngredients[i].name)
 	}
 	for (let i = 0; i < arrayInstructions.length; i++) {
-		if (extractRecipes.recipes[0].analyzedInstructions[0] === undefined) {
-			noRecipe()
-		} else {
 			pageInstructions.push(arrayInstructions[i].step)
-		}
 	}
 
-	const ul = document.createElement('ul')
+	ul = document.createElement('ul')
 	ul.id = "list"
 	ul.innerText = " "
 	if (arrayInstructions[0].step === "Go to my blog for full instructions: http://gourmandelle.com/chocolate-chip-coconut-muffins/") {
@@ -171,8 +172,7 @@ function renderRecipeIngredientPage(data) {
 	image.src = extractRecipes.recipes[0].image
 	image.alt = "Image of Recipe"
 	image.classList.add("card-img-top", "mb-2", 'top-shadow', 'card-bg-color', 'w-100')
-	imgDiv.classList.add('card')
-	imgDiv.setAttribute("width", "18rem")
+	imgDiv.classList.add('flex', 'col-lg-4', 'row', 'justify-content-center')
 	const recipeCardBody = document.createElement('div')
 	const h3 = document.createElement('h3')
 	h3.classList.add('card-title', 'text-center')
@@ -184,7 +184,6 @@ function renderRecipeIngredientPage(data) {
 	buttonNutrition.classList.remove("hidden")
 	newRecipe.classList.remove("hidden")
 	buttonHome.addEventListener('click', homeFromRecipePage)
-	buttonNutrition.addEventListener('click', getNutrition)
 
 	header.scrollIntoView();
 	pageIngredients = []
@@ -192,10 +191,12 @@ function renderRecipeIngredientPage(data) {
 	spinner.classList.add('invisible')
 	container.classList.remove('oops-height')
 
+  imgDiv1.classList.add('card')
 	imgDivContainer.appendChild(imgDiv)
-	imgDiv.appendChild(image)
-	imgDiv.appendChild(recipeCardBody)
-	imgDiv.appendChild(ul)
+	imgDiv.appendChild(imgDiv1)
+	imgDiv1.appendChild(image)
+	imgDiv1.appendChild(recipeCardBody)
+	imgDiv1.appendChild(ul)
 	recipeCardBody.appendChild(h3)
 
 	stop()
@@ -216,6 +217,7 @@ function getExtractedRandomBreakfastRecipes() {
 		},
 		success: function (data) {
 			renderRecipeIngredientPage(data)
+			stop()
 		}
 	})
 }
@@ -234,8 +236,8 @@ function getExtractedRandomLunchRecipes() {
 			stop()
 		},
 		success: function (data) {
-
-				renderRecipeIngredientPage(data)
+			renderRecipeIngredientPage(data)
+			stop()
 		}
 	})
 }
@@ -254,7 +256,8 @@ function getExtractedRandomDinnerRecipes(event) {
 			stop()
 		},
 		success: function (data) {
-				renderRecipeIngredientPage(data)
+			renderRecipeIngredientPage(data)
+			stop()
 		}
 	})
 }
@@ -287,7 +290,6 @@ function getNewRecipe(event) {
 }
 
 function getNutrition(data) {
-	buttonNutrition.removeEventListener('click', getNutrition)
 	timeToSpin = setInterval(spin, 1000)
 	$.ajax({
 		type: "GET",
@@ -335,7 +337,6 @@ function getNutrition(data) {
 				ul.appendChild(li8)
 				modalContent.appendChild(ul)
 				modalButton.classList.remove('hidden')
-				buttonNutrition.addEventListener('click', getNutrition)
 			stop()
 			}
 		},
@@ -422,7 +423,6 @@ function getNix(data) {
 			ul.appendChild(li8)
 			modalContent.appendChild(ul)
 			modalButton.classList.remove('hidden')
-			buttonNutrition.addEventListener('click', getNutrition)
 		}
 		stop()
 	}
@@ -437,7 +437,6 @@ modalButton.addEventListener('click', function () {
 	modalButton.classList.add('hidden')
 	modalOverlay.classList.add('modal-b-reveal')
 	ul.innerHTML = " "
-	buttonNutrition.addEventListener('click', getNutrition)
 });
 
 function noRecipe() {
@@ -463,17 +462,23 @@ function stop() {
 function handleEvent(event) {
 	console.log(event)
 	let event1 = event
+	container.classList.remove('hidden')
+	h1.classList.add('hidden')
+	if (event.target.id !== "new-recipe" && event.target.id !== "no-recipe" && event.target.id !== "button-nutrition" && event.target.id !== "buttonHome" && event.target.id !== "img1" && event.target.id !== "img2" && event.target.id !== "img3") {
+		return
+	}
 	if (event.target.id === "new-recipe" || event.target.id === "buttonNutrition" || event.target.id === "buttonHome" ) {
 		newRecipe.disabled = true
 		setTimeout(function (){newRecipe.disabled = false;}, 1000);
 	}
-	if (event.path[0].id === "button-home" || event.currentTarget = "div#container.container.border-t.col-sm-12.col-md-12.col-lg-12") {
+	if (event.path[0].id === "button-home") {
 		renderHomePage()
 		return
 	}
-	container.classList.remove('hidden')
-	h1.classList.add('hidden')
-	if (event.target.id === "img1" || currentImg === "img1") {
+	if (event.path[0].id === "button-nutrition") {
+		getNutrition()
+		return
+	} else if (event.target.id === "img1" || currentImg === "img1") {
 		currentImg = "img1"
 		getExtractedRandomBreakfastRecipes()
 	} else if (event.target.id === "new-recipe" && currentImg === "img1" || event.target.id === "no-recipe" && currentImg === "img1") {
