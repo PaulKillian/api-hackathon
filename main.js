@@ -39,7 +39,6 @@ let servingInfo = null
 let nutData = null
 let nixURL = "https://trackapi.nutritionix.com/v2/search/item?nix_item_id="
 let nixData = {}
-let nixCounter = 0
 let currentImg = null
 container.addEventListener('click', handleEvent)
 
@@ -127,14 +126,13 @@ renderHomePage()
 
 
 function renderRecipeIngredientPage(data) {
-	nixCounter = 0
 	main.innerHTML = " "
 	imgDiv.innerHTML = " "
 	imgDiv1.innerHTML = " "
 	imgContainer.innerHTML = " "
 	ulForRecipeIngredientList.innerHTML = " "
 	extractRecipes = data
-	if (extractRecipes.recipes[0].analyzedInstructions[0] === undefined) {
+	if (extractRecipes.recipes[0].analyzedInstructions[0].steps === undefined) {
 		noRecipe()
 	}
 	arrayInstructions = extractRecipes.recipes[0].analyzedInstructions[0].steps
@@ -195,17 +193,18 @@ function renderRecipeIngredientPage(data) {
 	nutritionURL += extractRecipes.recipes[0].title
 	if (nutritionURL.indexOf('&')) {
 		originalString = extractRecipes.recipes[0].title
-		string1 = originalString.replace('&', '')
-		string2 = string1.replace('-', '')
-		string3 = string2.replace('-', '')
+		string1 = originalString.replace('&', ' ')
+		string2 = string1.replace('-', ' ')
+		string3 = string2.replace(' - ', '')
 		string4 = string3.replace('/', ' ')
 		string5 = string4.replace('/', ' ')
 		string6 = string5.replace(',', '')
-		nutritionURL += `${string6}`
+		nutritionURL = `https://trackapi.nutritionix.com/v2/search/instant?query=${string6}`
 	}
 
 	spinner.classList.add('invisible')
 	container.classList.remove('oops-height')
+	imgDiv.classList.remove('hidden')
 	pageIngredients = []
 	pageInstructions = []
 
@@ -286,7 +285,6 @@ function getExtractedRandomDinnerRecipes(event) {
 }
 
 function getNewRecipe(event) {
-	nixCounter = 0
 	container.classList.remove('oops-height')
 	h1.classList.add('hidden')
 	header.classList.remove('hidden')
@@ -307,6 +305,7 @@ function getNutrition(data) {
 		},
 
 		error: function() {
+			noRecipe()
 			stop()
 		},
 		success: function(data) {
@@ -331,8 +330,8 @@ function getNix(data) {
 			"x-app-key": "f709403f9386d771a17c9f79935a51e9"
 	},
 
-	error: function() {
-		if (nixCounter > 0) {
+	error: function(data) {
+		if (data.status === 404) {
 			modalUl.innerHTML = " "
 			modalUl.classList.add('d-flex', 'flex-column')
 			modalUl.classList.add('list-group')
@@ -372,11 +371,11 @@ function getNix(data) {
 			modalOverlay.classList.remove('modal-b-reveal')
 			modalButton.classList.remove('hidden')
 			modalContent.classList.remove('hidden')
-		stop()
 		}
+		stop()
 	},
+
 	success: function (data) {
-		nixCounter++
 		nixData = data.foods
 		modalUl.classList.add('d-flex', 'flex-column')
 		modalUl.classList.add('list-group')
@@ -439,8 +438,6 @@ function getNix(data) {
   })
 }
 
-
-
 modalButton.addEventListener('click', function () {
 	modalContent.classList.add('hidden')
 	modalOverlay.classList.add('hidden')
@@ -490,17 +487,17 @@ function handleEvent(event) {
 		currentImg = "img1"
 		getExtractedRandomBreakfastRecipes()
 	} else if (event.target.id === "new-recipe" && currentImg === "img1" || event.target.id === "no-recipe" && currentImg === "img1") {
-			getExtractedRandomBreakfastRecipes()
+		getExtractedRandomBreakfastRecipes()
 	} if (event.target.id === "img2" || currentImg === "img2") {
 		currentImg = "img2"
 		getExtractedRandomLunchRecipes()
 	} else if (event.target.id === "new-recipe" && currentImg === "img2" || event.target.id === "no-recipe" && currentImg === "img2") {
-			getExtractedRandomBreakfastRecipes()
+		getExtractedRandomBreakfastRecipes()
 	} if (event.target.id === "img3" || currentImg === "img3") {
 		currentImg = "img3"
 		getExtractedRandomDinnerRecipes()
 	} else if (event.target.id === "new-recipe" && currentImg === "img3" || event.target.id === "no-recipe" && currentImg === "img3") {
-			getExtractedRandomBreakfastRecipes()
+		getExtractedRandomBreakfastRecipes()
 	}
 	stop()
 }
