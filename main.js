@@ -23,6 +23,7 @@ const noRecipeButton = document.getElementById('no-recipe')
 const imgRow = document.getElementById('img-row')
 const imgContainer = document.getElementById('img-container')
 const modalUl = document.getElementById('modal-list')
+let imgClick = 0
 let ulForRecipeIngredientList = document.getElementById('recipe-ingredient-list')
 let prioritiesNewRecipe = null
 let timeToSpin = null
@@ -472,28 +473,37 @@ function handleEvent(event) {
 	if (event.target.id !== "new-recipe" && event.target.id !== "no-recipe" && event.target.id !== "button-nutrition" && event.target.id !== "button-home" && event.target.id !== "img1" && event.target.id !== "img2" && event.target.id !== "img3") {
 		return
 	}
-	if (event.target.id === "new-recipe" || event.target.id === "buttonNutrition" || event.target.id === "buttonHome" ) {
+	if (event.target.id === "new-recipe" || event.target.id === "buttonNutrition" || event.target.id === "buttonHome" || event.target.id === "no-recipe") {
 		newRecipe.disabled = true
 		setTimeout(function (){newRecipe.disabled = false;}, 1000);
+		imgClick = 0
 	}
 	if (event.path[0].id === "button-home") {
 		renderHomePage()
+		imgClick = 0
 		return
 	}
 	if (event.path[0].id === "button-nutrition") {
 		getNutrition()
+		imgClick = 0
 		return
-	} else if (event.target.id === "img1" || currentImg === "img1") {
+	}
+	if (imgClick > 0) {
+		return
+	}	else if (event.target.id === "img1" || currentImg === "img1") {
+		imgClick++
 		currentImg = "img1"
 		getExtractedRandomBreakfastRecipes()
 	} else if (event.target.id === "new-recipe" && currentImg === "img1" || event.target.id === "no-recipe" && currentImg === "img1") {
 		getExtractedRandomBreakfastRecipes()
 	} if (event.target.id === "img2" || currentImg === "img2") {
+		imgClick++
 		currentImg = "img2"
 		getExtractedRandomLunchRecipes()
 	} else if (event.target.id === "new-recipe" && currentImg === "img2" || event.target.id === "no-recipe" && currentImg === "img2") {
 		getExtractedRandomBreakfastRecipes()
 	} if (event.target.id === "img3" || currentImg === "img3") {
+		imgClick++
 		currentImg = "img3"
 		getExtractedRandomDinnerRecipes()
 	} else if (event.target.id === "new-recipe" && currentImg === "img3" || event.target.id === "no-recipe" && currentImg === "img3") {
