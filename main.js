@@ -134,7 +134,7 @@ function renderRecipeIngredientPage(data) {
 	imgContainer.innerHTML = " "
 	ulForRecipeIngredientList.innerHTML = " "
 	extractRecipes = data
-	if (extractRecipes.recipes[0].analyzedInstructions[0].steps === undefined) {
+	if (extractRecipes.recipes[0].analyzedInstructions[0] === undefined) {
 		noRecipe()
 	}
 	arrayInstructions = extractRecipes.recipes[0].analyzedInstructions[0].steps
@@ -512,12 +512,12 @@ function handleEvent(event) {
 		imgClick++
 		getExtractedRandomLunchRecipes()
 	} else if (event.target.id === "new-recipe" && currentImg === "img2" || event.target.id === "no-recipe" && currentImg === "img2") {
-		getExtractedRandomBreakfastRecipes()
+		getExtractedRandomLunchRecipes()
 	} if (event.target.id === "img3" && currentImg === "img3" || event.target.id === "img2" && currentImg === "img3" || event.target.id === "img1" && currentImg === "img3") {
 		imgClick++
 		getExtractedRandomDinnerRecipes()
 	} else if (event.target.id === "new-recipe" && currentImg === "img3" || event.target.id === "no-recipe" && currentImg === "img3") {
-		getExtractedRandomBreakfastRecipes()
+		getExtractedRandomDinnerRecipes()
 	}
 
 }
