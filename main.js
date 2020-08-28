@@ -23,6 +23,8 @@ const noRecipeButton = document.getElementById('no-recipe')
 const imgRow = document.getElementById('img-row')
 const imgContainer = document.getElementById('img-container')
 const modalUl = document.getElementById('modal-list')
+const loading = document.getElementById('loading-screen')
+const spinnerText = document.getElementById('spinner-text')
 let spinnerCounter = 0
 let imgClick = 0
 let ulForRecipeIngredientList = document.getElementById('recipe-ingredient-list')
@@ -126,6 +128,27 @@ function renderHomePage() {
 
 renderHomePage()
 
+function hideContentForLoading(){
+	spinnerText.textContent = "INSTANT RECIPE"
+	spinner.classList.remove('invisible', 'modal-b-reveal')
+	loading.classList.remove('hidden', 'modal-b-reveal')
+	container.classList.add('hidden')
+	header.classList.add('hidden')
+	choose.classList.add('hidden')
+	imgDiv.classList.add('hidden')
+}
+
+function revealContentAfterLoading(){
+	container.classList.remove('hidden')
+	header.classList.remove('hidden')
+	choose.classList.remove('hidden')
+	imgDiv.classList.remove('hidden', 'modal-b-reveal')
+	loading.classList.add('hidden')
+	spinner.classList.remove('invisible')
+	spinner.classList.add('modal-b-reveal', 'invisible')
+	spinnerText.textContent = " "
+}
+
 
 function renderRecipeIngredientPage(data) {
 	main.innerHTML = " "
@@ -222,9 +245,11 @@ function renderRecipeIngredientPage(data) {
 	imgDiv1.appendChild(recipeCardBody)
 	imgDiv1.appendChild(ulForRecipeIngredientList)
 	recipeCardBody.appendChild(h3)
+	revealContentAfterLoading()
 }
 
 function getExtractedRandomBreakfastRecipes() {
+	hideContentForLoading()
 	timeToSpin = setInterval(spin, 1000)
 	currentRecipe = 1
 	$.ajax({
@@ -245,6 +270,7 @@ function getExtractedRandomBreakfastRecipes() {
 }
 
 function getExtractedRandomLunchRecipes() {
+	hideContentForLoading()
 	timeToSpin = setInterval(spin, 1000)
 	currentRecipe = 2
 	$.ajax({
@@ -265,6 +291,7 @@ function getExtractedRandomLunchRecipes() {
 }
 
 function getExtractedRandomDinnerRecipes(event) {
+	hideContentForLoading()
 	timeToSpin = setInterval(spin, 1000)
 	currentRecipe = 3
 	$.ajax({
@@ -293,6 +320,7 @@ function getNewRecipe(event) {
 }
 
 function getNutrition(data) {
+	hideContentForLoading()
 	timeToSpin = setInterval(spin, 1000)
 	$.ajax({
 		type: "GET",
@@ -319,6 +347,7 @@ function getNutrition(data) {
 
 
 function getNix(data) {
+	hideContentForLoading()
 	timeToSpin = setInterval(spin, 1000)
 	$.ajax({
 		type: "GET",
@@ -331,33 +360,34 @@ function getNix(data) {
 	},
 
 	error: function(data) {
+		hideContentForLoading()
 		if (data.status === 404) {
 			modalUl.innerHTML = " "
 			modalUl.classList.add('d-flex', 'flex-column')
 			modalUl.classList.add('list-group')
 			const li1 = document.createElement('li')
-			li1.classList.add('list-group-item')
+			li1.classList.add('list-group-item', 'padding')
 			li1.textContent = `Serving Qty: ${nixData['serving_gty']}`
 			const li2 = document.createElement('li')
-			li2.classList.add('list-group-item')
+			li2.classList.add('list-group-item', 'padding')
 			li2.textContent = `Calories: ${nixData['calories']}`
 			const li3 = document.createElement('li')
-			li3.classList.add('list-group-item')
+			li3.classList.add('list-group-item', 'padding')
 			li3.textContent = `Total Fat ${nixData['total-fat']}`
 			const li4 = document.createElement('li')
-			li4.classList.add('list-group-item')
+			li4.classList.add('list-group-item', 'padding')
 			li4.textContent = `Total Carbs: ${nixData['total-carbs']}`
 			const li5 = document.createElement('li')
-			li5.classList.add('list-group-item')
+			li5.classList.add('list-group-item', 'padding')
 			li5.textContent = `Protein: ${nixData['protein']}`
 			const li6 = document.createElement('li')
-			li6.classList.add('list-group-item')
+			li6.classList.add('list-group-item', 'padding')
 			li6.textContent = `Sugar: ${nixData['sugars']}`
 			const li7 = document.createElement('li')
-			li7.classList.add('list-group-item')
+			li7.classList.add('list-group-item', 'padding')
 			li7.textContent = `Sodium: ${nixData['sodium']}`
 			const li8 = document.createElement('li')
-			li8.classList.add('list-group-item')
+			li8.classList.add('list-group-item', 'padding')
 			li8.textContent = `Dietary Fiber: ${nixData['dietary-fiber']}`
 			modalUl.appendChild(li1)
 			modalUl.appendChild(li2)
@@ -371,6 +401,7 @@ function getNix(data) {
 			modalOverlay.classList.remove('modal-b-reveal')
 			modalButton.classList.remove('hidden')
 			modalContent.classList.remove('hidden')
+			revealContentAfterLoading()
 		}
 		stop()
 	},
@@ -383,42 +414,42 @@ function getNix(data) {
 			let serving = nixData[i].serving_qty
 			nixData['serving_gty'] = serving
 			const li1 = document.createElement('li')
-			li1.classList.add('list-group-item')
+			li1.classList.add('list-group-item', 'padding')
 			li1.textContent = `Serving Qty: ${serving}`
 			let calories = nixData[i].nf_calories
 			nixData['calories'] = calories
 			const li2 = document.createElement('li')
-			li2.classList.add('list-group-item')
+			li2.classList.add('list-group-item', 'padding')
 			li2.textContent = `Calories: ${calories}`
 			let totalFat = nixData[i].nf_total_fat
 			nixData['total-fat'] = totalFat
 			const li3 = document.createElement('li')
-			li3.classList.add('list-group-item')
+			li3.classList.add('list-group-item', 'padding')
 			li3.textContent = `Total Fat: ${totalFat}`
 			let totalCarbs = nixData[i].nf_total_carbohydrate
 			nixData['total-carbs'] = totalCarbs
 			const li4 = document.createElement('li')
-			li4.classList.add('list-group-item')
+			li4.classList.add('list-group-item', 'padding')
 			li4.textContent = `Total Carbohydrates: ${totalCarbs}`
 			let protein = nixData[i].nf_protein
 			nixData['protein'] = protein
 			const li5 = document.createElement('li')
-			li5.classList.add('list-group-item')
+			li5.classList.add('list-group-item', 'padding')
 			li5.textContent = `Protein: ${protein}`
 			let sugars = nixData[i].nf_sugars
 			nixData['sugars'] = sugars
 			const li6 = document.createElement('li')
-			li6.classList.add('list-group-item')
+			li6.classList.add('list-group-item', 'padding')
 			li6.textContent = `Sugars: ${sugars}`
 			let sodium = nixData[i].nf_sodium
 			nixData['sodium'] = sodium
 			const li7 = document.createElement('li')
-			li7.classList.add('list-group-item')
+			li7.classList.add('list-group-item', 'padding')
 			li7.textContent = `Sodium: ${sodium}`
 			let dietaryFiber = nixData[i].nf_dietary_fiber
 			nixData['dietary-fiber'] = dietaryFiber
 			const li8 = document.createElement('li')
-			li8.classList.add('list-group-item')
+			li8.classList.add('list-group-item', 'padding')
 			li8.textContent = `Dietary Fiber: ${dietaryFiber}`
 			modalUl.appendChild(li1)
 			modalUl.appendChild(li2)
@@ -432,6 +463,7 @@ function getNix(data) {
 			modalOverlay.classList.remove('modal-b-reveal')
 			modalButton.classList.remove('hidden')
 			modalContent.classList.remove('hidden')
+			revealContentAfterLoading()
 		}
 		stop()
 	}
@@ -519,5 +551,4 @@ function handleEvent(event) {
 	} else if (event.target.id === "new-recipe" && currentImg === "img3" || event.target.id === "no-recipe" && currentImg === "img3") {
 		getExtractedRandomDinnerRecipes()
 	}
-
 }
