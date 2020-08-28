@@ -129,7 +129,6 @@ function renderHomePage() {
 renderHomePage()
 
 function hideContentForLoading(){
-	spinnerText.textContent = "INSTANT RECIPE"
 	spinner.classList.remove('invisible', 'modal-b-reveal')
 	loading.classList.remove('hidden', 'modal-b-reveal')
 	container.classList.add('hidden')
@@ -146,7 +145,6 @@ function revealContentAfterLoading(){
 	loading.classList.add('hidden')
 	spinner.classList.remove('invisible')
 	spinner.classList.add('modal-b-reveal', 'invisible')
-	spinnerText.textContent = " "
 }
 
 
