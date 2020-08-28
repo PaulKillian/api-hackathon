@@ -243,6 +243,8 @@ function renderRecipeIngredientPage(data) {
 	imgDiv1.appendChild(recipeCardBody)
 	imgDiv1.appendChild(ulForRecipeIngredientList)
 	recipeCardBody.appendChild(h3)
+	h1.classList.remove('d-flex')
+	h1.classList.remove('oops-height')
 	revealContentAfterLoading()
 }
 
@@ -479,6 +481,8 @@ modalButton.addEventListener('click', function () {
 function noRecipe() {
 	container.classList.add('hidden')
 	h1.classList.remove('hidden')
+	h1.classList.add('d-flex')
+	h1.classList.add('oops-height')
 	container.classList.add('oops-height')
 	header.classList.add('hidden')
 	choose.classList.add('hidden')
