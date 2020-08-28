@@ -106,3 +106,15 @@ button:hover {
     width: 77%
   }
 }
+
+@media only screen and (min-width: 768px) {
+  .imgContainer1 {
+    width: 36%
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .imgContainer {
+    width: 77%
+  }
+}
