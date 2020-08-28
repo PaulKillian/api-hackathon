@@ -30,12 +30,20 @@ h3 {
 }
 
 .border-t {
-	background-image: url(images/1040924_chocolate-wallpapers-ice-cream_1980x1200_h.jpg);
-	background-size: cover;
-	background-repeat: no-repeat;
 	border-style: solid;
 	border-color: rgb(165, 159, 159);;
 	border-width: 5px !important;
+}
+
+.border-t,
+.loading-bg {
+	background-image: url(images/1040924_chocolate-wallpapers-ice-cream_1980x1200_h.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.spinner-height {
+	height: 100vh;
 }
 
 .hidden {
