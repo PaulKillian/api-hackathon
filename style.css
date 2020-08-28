@@ -1,18 +1,12 @@
 body {
 	font-family: 'Amita', cursive;
-	color: white;
+	color: black;
 	height: 97vh;
 }
 
 li {
 	font-family: 'Baloo Da 2', cursive;
 	color: black;
-}
-
-h1,
-h2,
-h3 {
-	text-shadow: 1.5px 1.5px #362b2b;
 }
 
 .b-color,
@@ -37,7 +31,7 @@ h3 {
 
 .border-t,
 .loading-bg {
-	background-color: rgb(247, 240, 213)
+	background-color: rgb(255, 251, 208);
 }
 
 .spinner-height {
@@ -58,7 +52,7 @@ h3 {
 }
 
 .card-bg-color {
-	background-color: rgb(168, 130, 77);
+	background-color: rgb(255, 255, 255);
 }
 
 .padding {

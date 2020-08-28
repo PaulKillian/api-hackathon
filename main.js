@@ -51,7 +51,7 @@ function renderHomePage() {
 	imgContainer.innerHTML = " "
 	imgRow.innerHTML = " "
 	const divRowOne = document.createElement('div')
-	divRowOne.classList.add('card')
+	divRowOne.classList.add('card', 'card-bg-color', 'top-shadow')
 	divRowOne.setAttribute("width", "10rem")
 	const pforRecipeImg1 = document.createElement('h3')
 	pforRecipeImg1.textContent = "Breakfast"
@@ -62,7 +62,7 @@ function renderHomePage() {
 	divRowTwo.classList.add("row", "justify-content-center")
 	const divRowThree = document.createElement('div')
 	divRowThree.setAttribute("width", "10rem")
-	divRowThree.classList.add("card")
+	divRowThree.classList.add("card", 'card-bg-color', 'top-shadow')
 	const pforRecipeImg2 = document.createElement('h3')
 	pforRecipeImg2.textContent = "Lunch"
 	pforRecipeImg2.classList.add('text-center')
@@ -71,7 +71,7 @@ function renderHomePage() {
 	const divRowFour = document.createElement('div')
 	divRowFour.classList.add("row", "justify-content-center")
 	const divRowFive = document.createElement('div')
-	divRowFive.classList.add("card")
+	divRowFive.classList.add("card", 'card-bg-color', 'top-shadow')
 	divRowFive.setAttribute("width", "10rem")
 	const pforRecipeImg3 = document.createElement('h3')
 	pforRecipeImg3.textContent = "Dinner"
