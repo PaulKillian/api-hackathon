@@ -37,10 +37,8 @@ h3 {
 
 .border-t,
 .loading-bg {
-	background-image: url(images/1040924_chocolate-wallpapers-ice-cream_1980x1200_h.jpg);
-	background-size: cover;
-	background-repeat: no-repeat;
-}
+	background-color: rgb(248, 235, 185)
+	}
 
 .spinner-height {
 	height: 100vh;
