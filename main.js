@@ -207,7 +207,7 @@ function renderRecipeIngredientPage(data) {
 	image.src = extractRecipes.recipes[0].image
 	image.alt = "Image of Recipe"
 	image.classList.add("card-img-top", "mb-2", 'top-shadow', 'card-bg-color', 'w-100')
-	imgDiv.classList.add('flex', 'col-lg-4', 'row', 'justify-content-center')
+	imgDiv.classList.add('flex', 'w-50', 'justify-content-center')
 	const recipeCardBody = document.createElement('div')
 	const h3 = document.createElement('h3')
 	h3.classList.add('card-title', 'text-center')
