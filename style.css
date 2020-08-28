@@ -95,14 +95,14 @@ button:hover {
 	display: none
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (min-width: 200px) {
   .imgContainer {
-    width: 85%
+    width: 30%
   }
 }
 
-@media only screen and (max-width: 1950px) {
+@media only screen and (max-width: 500px) {
   .imgContainer {
-    width: 50%
+    width: 77%
   }
 }
