@@ -57,7 +57,7 @@ function renderHomePage() {
 	pforRecipeImg1.textContent = "Breakfast"
 	pforRecipeImg1.classList.add('text-center')
 	const recipeCardBody1 = document.createElement('div')
-	recipeCardBody1.classList.add('card-body', 'card-bg-color', 'mb-2')
+	recipeCardBody1.classList.add('card-body', 'bg-white', 'mb-2')
 	const divRowTwo = document.createElement('div')
 	divRowTwo.classList.add("row", "justify-content-center")
 	const divRowThree = document.createElement('div')
@@ -67,7 +67,7 @@ function renderHomePage() {
 	pforRecipeImg2.textContent = "Lunch"
 	pforRecipeImg2.classList.add('text-center')
 	const recipeCardBody3 = document.createElement('div')
-	recipeCardBody3.classList.add('card-body', 'card-bg-color', 'mb-2')
+	recipeCardBody3.classList.add('card-body', 'bg-white', 'mb-2')
 	const divRowFour = document.createElement('div')
 	divRowFour.classList.add("row", "justify-content-center")
 	const divRowFive = document.createElement('div')
@@ -77,7 +77,7 @@ function renderHomePage() {
 	pforRecipeImg3.textContent = "Dinner"
 	pforRecipeImg3.classList.add('text-center')
 	const recipeCardBody5 = document.createElement('div')
-	recipeCardBody5.classList.add('card-body', 'card-bg-color', 'mt-2')
+	recipeCardBody5.classList.add('card-body', 'bg-white', 'mt-2')
 	const divRowSix = document.createElement('div')
 	divRowSix.classList.add("row", "justify-content-center")
 	const imgOne = document.createElement('img')
@@ -85,11 +85,11 @@ function renderHomePage() {
 	imgOne.id = "img1"
 	imgOne.src = "https://spoonacular.com/recipeImages/639114-556x370.jpg"
 	const imgTwo = document.createElement('img')
-	imgTwo.classList.add('card-img-top','top-shadow',)
+	imgTwo.classList.add('card-img-top','top-shadow')
 	imgTwo.id = "img2"
 	imgTwo.src = "https://spoonacular.com/recipeImages/986003-556x370.jpg"
 	const imgThree = document.createElement('img')
-	imgThree.classList.add('card-img-top','top-shadow',)
+	imgThree.classList.add('card-img-top','top-shadow')
 	imgThree.id = "img3"
 	imgThree.src = "https://spoonacular.com/recipeImages/638038-556x370.jpg"
 	imgOne.style.cursor = "pointer"
@@ -184,14 +184,13 @@ function renderRecipeIngredientPage(data) {
 		}
 
 	const h2R = document.createElement('h2')
-	h2R.classList.add('text-center')
 	main.classList.remove('flex')
 	main.classList.add('d-flex')
 	h3R.classList.add('pt-2')
 	h2I.textContent = " "
 	h2I.classList.add('w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
 	h2R.textContent = "Here are your ingredients"
-	h2R.classList.add('pt-1', 'pb-2', 'card-bg-color')
+	h2R.classList.add('pt-1', 'pb-2', 'loading-bg', 'text-center', 'shadow-sm')
 	ulForRecipeIngredientList.classList.add('list-group', 'shadow', 'pt-2')
 	ulForRecipeIngredientList.appendChild(h2R)
 
@@ -212,7 +211,7 @@ function renderRecipeIngredientPage(data) {
 	const h3 = document.createElement('h3')
 	h3.classList.add('card-title', 'text-center')
 	h3.textContent = extractRecipes.recipes[0].title
-	recipeCardBody.classList.add('card-body', 'card-bg-color', 'm-0')
+	recipeCardBody.classList.add('card-body', 'loading-bg', 'm-0', 'shadow-sm',)
 	nutritionURL += extractRecipes.recipes[0].title
 	if (nutritionURL.indexOf('&')) {
 		originalString = extractRecipes.recipes[0].title
