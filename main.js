@@ -10,7 +10,6 @@ const imgDiv1 = document.getElementById('img-div1')
 const divList = document.getElementById('id')
 const buttonHome = document.getElementById('button-home')
 const buttonNutrition = document.getElementById('button-nutrition')
-const buttonBack = document.getElementById('button-back')
 const newRecipe = document.getElementById('new-recipe')
 const hereIsRecipe = document.getElementById('here-is-recipe')
 const modalOverlay = document.querySelector('.modal-overlay')
@@ -21,15 +20,13 @@ const h1 = document.getElementById('oops')
 const choose = document.getElementById('choose')
 const noRecipeButton = document.getElementById('no-recipe')
 const imgRow = document.getElementById('img-row')
-const imgContainer = document.getElementById('img-container')
+const imgContainer = document.getElementById('homepage-container')
 const modalUl = document.getElementById('modal-list')
 const loading = document.getElementById('loading-screen')
 const spinnerText = document.getElementById('spinner-text')
-let spinnerCounter = 0
 let imgClick = 0
 let ulForRecipeIngredientList = document.getElementById('recipe-ingredient-list')
 let prioritiesNewRecipe = null
-let timeToSpin = null
 let currentRecipe = 0
 let nutritionURL = "https://trackapi.nutritionix.com/v2/search/instant?query="
 let extractRecipes = []
@@ -190,8 +187,8 @@ function renderRecipeIngredientPage(data) {
 	h2I.textContent = " "
 	h2I.classList.add('w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
 	h2R.textContent = "Here are your ingredients"
-	h2R.classList.add('pt-1', 'pb-2', 'loading-bg', 'text-center', 'shadow-sm')
-	ulForRecipeIngredientList.classList.add('list-group', 'shadow', 'pt-2')
+	h2R.classList.add('pt-1', 'pb-2', 'mb-1', 'loading-bg', 'text-center', 'shadow-sm')
+	ulForRecipeIngredientList.classList.add('list-group', 'shadow')
 	ulForRecipeIngredientList.appendChild(h2R)
 
 	for (let i = 0; i < pageIngredients.length; i++) {
@@ -201,7 +198,7 @@ function renderRecipeIngredientPage(data) {
 		ulForRecipeIngredientList.appendChild(li)
 	}
 
-	const imgDivContainer = document.getElementById("img-div-container")
+	const imgDivContainer = document.getElementById("recipe-container")
 	const image = document.createElement('img')
 	image.src = extractRecipes.recipes[0].image
 	image.alt = "Image of Recipe"
@@ -211,7 +208,7 @@ function renderRecipeIngredientPage(data) {
 	const h3 = document.createElement('h3')
 	h3.classList.add('card-title', 'text-center')
 	h3.textContent = extractRecipes.recipes[0].title
-	recipeCardBody.classList.add('card-body', 'loading-bg', 'm-0', 'shadow-sm',)
+	recipeCardBody.classList.add('card-body', 'loading-bg', 'm-0', 'shadow',)
 	nutritionURL += extractRecipes.recipes[0].title
 	if (nutritionURL.indexOf('&')) {
 		originalString = extractRecipes.recipes[0].title
@@ -233,7 +230,6 @@ function renderRecipeIngredientPage(data) {
 	buttonHome.classList.remove("hidden")
 	buttonNutrition.classList.remove("hidden")
 	newRecipe.classList.remove("hidden")
-	header.scrollIntoView();
 	imgDiv1.classList.add('card')
 
 	imgDivContainer.appendChild(imgDiv)
@@ -245,11 +241,11 @@ function renderRecipeIngredientPage(data) {
 	h1.classList.remove('d-flex')
 	h1.classList.remove('oops-height')
 	revealContentAfterLoading()
+	header.scrollIntoView();
 }
 
 function getExtractedRandomBreakfastRecipes() {
 	hideContentForLoading()
-	timeToSpin = setInterval(spin, 1000)
 	currentRecipe = 1
 	$.ajax({
 		type: "GET",
@@ -270,7 +266,6 @@ function getExtractedRandomBreakfastRecipes() {
 
 function getExtractedRandomLunchRecipes() {
 	hideContentForLoading()
-	timeToSpin = setInterval(spin, 1000)
 	currentRecipe = 2
 	$.ajax({
 		type: "GET",
@@ -291,7 +286,6 @@ function getExtractedRandomLunchRecipes() {
 
 function getExtractedRandomDinnerRecipes(event) {
 	hideContentForLoading()
-	timeToSpin = setInterval(spin, 1000)
 	currentRecipe = 3
 	$.ajax({
 		type: "GET",
@@ -320,7 +314,6 @@ function getNewRecipe(event) {
 
 function getNutrition(data) {
 	hideContentForLoading()
-	timeToSpin = setInterval(spin, 1000)
 	$.ajax({
 		type: "GET",
 		url: nutritionURL,
@@ -347,7 +340,6 @@ function getNutrition(data) {
 
 function getNix(data) {
 	hideContentForLoading()
-	timeToSpin = setInterval(spin, 1000)
 	$.ajax({
 		type: "GET",
 		url: nixURL,
@@ -487,22 +479,11 @@ function noRecipe() {
 	choose.classList.add('hidden')
 	imgDiv.classList.add('hidden')
 	header.classList.remove('hidden')
+	loading.classList.add('hidden')
+	spinner.classList.remove('invisible')
+	spinner.classList.add('modal-b-reveal', 'invisible')
 	noRecipeButton.addEventListener('click', handleEvent)
 }
-
-function spin() {
-	if(spinnerCounter > 0) {
-		stop()
-	} else {
-	spinner.classList.remove('invisible')
-	}
-	spinnerCounter++
-}
-function stop() {
-	spinner.classList.add('invisible')
-	clearInterval(timeToSpin)
-}
-
 
 function handleEvent(event) {
 	container.classList.remove('hidden')
@@ -511,8 +492,6 @@ function handleEvent(event) {
 		return
 	}
 	if (event.target.id === "new-recipe" || event.target.id === "buttonNutrition" || event.target.id === "buttonHome" || event.target.id === "no-recipe") {
-		newRecipe.disabled = true
-		setTimeout(function (){newRecipe.disabled = false;}, 1000);
 		imgClick = 0
 	}
 	if (event.path[0].id === "button-home") {
