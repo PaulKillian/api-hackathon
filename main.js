@@ -89,7 +89,7 @@ function renderHomePage() {
 	imgTwo.id = "img2"
 	imgTwo.src = "https://spoonacular.com/recipeImages/986003-556x370.jpg"
 	const imgThree = document.createElement('img')
-	imgThree.classList.add('card-img-top','top-shadow')
+	imgThree.classList.add('card-img-top','top-shadow',)
 	imgThree.id = "img3"
 	imgThree.src = "https://spoonacular.com/recipeImages/638038-556x370.jpg"
 	imgOne.style.cursor = "pointer"
