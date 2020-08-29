@@ -48,7 +48,7 @@ function renderHomePage() {
 	imgContainer.innerHTML = " "
 	imgRow.innerHTML = " "
 	const divRowOne = document.createElement('div')
-	divRowOne.classList.add('card', 'card-bg-color', 'top-shadow')
+	divRowOne.classList.add('card', 'card-bg-color', 'shadow')
 	divRowOne.setAttribute("width", "10rem")
 	const pforRecipeImg1 = document.createElement('h3')
 	pforRecipeImg1.textContent = "Breakfast"
@@ -59,7 +59,7 @@ function renderHomePage() {
 	divRowTwo.classList.add("row", "justify-content-center")
 	const divRowThree = document.createElement('div')
 	divRowThree.setAttribute("width", "10rem")
-	divRowThree.classList.add("card", 'card-bg-color', 'top-shadow')
+	divRowThree.classList.add("card", 'card-bg-color', 'shadow')
 	const pforRecipeImg2 = document.createElement('h3')
 	pforRecipeImg2.textContent = "Lunch"
 	pforRecipeImg2.classList.add('text-center')
@@ -68,7 +68,7 @@ function renderHomePage() {
 	const divRowFour = document.createElement('div')
 	divRowFour.classList.add("row", "justify-content-center")
 	const divRowFive = document.createElement('div')
-	divRowFive.classList.add("card", 'card-bg-color', 'top-shadow')
+	divRowFive.classList.add("card", 'card-bg-color', 'shadow')
 	divRowFive.setAttribute("width", "10rem")
 	const pforRecipeImg3 = document.createElement('h3')
 	pforRecipeImg3.textContent = "Dinner"
@@ -78,15 +78,15 @@ function renderHomePage() {
 	const divRowSix = document.createElement('div')
 	divRowSix.classList.add("row", "justify-content-center")
 	const imgOne = document.createElement('img')
-	imgOne.classList.add('card-img-top', 'top-shadow', 'lg-col-7')
+	imgOne.classList.add('card-img-top', 'shadow', 'lg-col-7')
 	imgOne.id = "img1"
 	imgOne.src = "https://spoonacular.com/recipeImages/639114-556x370.jpg"
 	const imgTwo = document.createElement('img')
-	imgTwo.classList.add('card-img-top','top-shadow')
+	imgTwo.classList.add('card-img-top','shadow')
 	imgTwo.id = "img2"
 	imgTwo.src = "https://spoonacular.com/recipeImages/986003-556x370.jpg"
 	const imgThree = document.createElement('img')
-	imgThree.classList.add('card-img-top','top-shadow',)
+	imgThree.classList.add('card-img-top','shadow',)
 	imgThree.id = "img3"
 	imgThree.src = "https://spoonacular.com/recipeImages/638038-556x370.jpg"
 	imgOne.style.cursor = "pointer"
@@ -202,7 +202,7 @@ function renderRecipeIngredientPage(data) {
 	const image = document.createElement('img')
 	image.src = extractRecipes.recipes[0].image
 	image.alt = "Image of Recipe"
-	image.classList.add("card-img-top", "mb-2", 'top-shadow', 'card-bg-color', 'w-100')
+	image.classList.add("card-img-top", 'shadow', 'card-bg-color', 'w-100')
 	imgDiv.classList.add('flex', 'justify-content-center')
 	const recipeCardBody = document.createElement('div')
 	const h3 = document.createElement('h3')
