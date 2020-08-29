@@ -74,7 +74,7 @@ function renderHomePage() {
 	pforRecipeImg3.textContent = "Dinner"
 	pforRecipeImg3.classList.add('text-center')
 	const recipeCardBody5 = document.createElement('div')
-	recipeCardBody5.classList.add('card-body', 'bg-white', 'mt-2')
+	recipeCardBody5.classList.add('card-body', 'bg-white')
 	const divRowSix = document.createElement('div')
 	divRowSix.classList.add("row", "justify-content-center")
 	const imgOne = document.createElement('img')
