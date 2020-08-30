@@ -18,5 +18,5 @@ HTML, CSS, JavaScript, JQuery, BootStrap and GoogleFonts
 
 # Preview
 
-![App Image](https://github.com/PaulKillian/instant-recipe/blob/master/screencapture-file-C-Users-p-lfz-api-hackathon-index-html-2020-08-25-11_36_48.png)
+![App GIF](https://github.com/PaulKillian/instant-recipe/blob/master/app%20demo.gif)
 
