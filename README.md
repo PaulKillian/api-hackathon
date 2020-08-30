@@ -6,7 +6,8 @@ https://paulkillian.github.io/instant-recipe/.
 
 ### Technologies Used
 
-HTML, CSS, JavaScript, JQuery, BootStrap and GoogleFonts
+HTML5, CSS3, JavaScript ES5/ES6, JQuery/AJAX, BootStrap 4, 
+Sponacular API and Nutitionix API
 
 # Features
 
