@@ -1,7 +1,6 @@
 body {
 	font-family: 'Amita', cursive;
 	color: #412e2e;
-	height: 97vh;
 }
 
 li {
@@ -85,9 +84,18 @@ button:hover {
 	background-color: rgba(0,0,0,0.4);
 }
 
+.recipe {
+	position: relative;
+	right: 0.1rem
+}
+
+.padding {
+	padding-left: 1px;
+}
+
 .modal-contents {
   border: solid 2px black;
-	width: 800%;
+	/* width: 800%; */
 	height: 100vh;
 }
 
@@ -120,5 +128,12 @@ button:hover {
 @media only screen and (max-width: 1024px) {
   .imgContainer {
     width: 77%
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  .container-recipe {
+		display: flex;
+		justify-content: space-around;
   }
 }
