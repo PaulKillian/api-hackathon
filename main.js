@@ -26,6 +26,7 @@ const loading = document.getElementById('loading-screen')
 const spinnerText = document.getElementById('spinner-text')
 let imgClick = 0
 let ulForRecipeIngredientList = document.getElementById('recipe-ingredient-list')
+let ulForInstructionList = document.getElementById('instruction-list')
 let prioritiesNewRecipe = null
 let currentRecipe = 0
 let nutritionURL = "https://trackapi.nutritionix.com/v2/search/instant?query="
@@ -45,6 +46,8 @@ container.addEventListener('click', handleEvent)
 
 
 function renderHomePage() {
+	imgDiv.innerHTML = " "
+	imgDiv1.innerHTML = " "
 	imgContainer.innerHTML = " "
 	imgRow.innerHTML = " "
 	const divRowOne = document.createElement('div')
@@ -146,6 +149,8 @@ function revealContentAfterLoading(){
 
 
 function renderRecipeIngredientPage(data) {
+	ulForInstructionList.innerHTML = ''
+	imgDiv.classList.remove('imgContainer', 'imgContainer1')
 	main.innerHTML = " "
 	imgDiv.innerHTML = " "
 	imgDiv1.innerHTML = " "
@@ -176,14 +181,20 @@ function renderRecipeIngredientPage(data) {
 	const image = document.createElement('img')
 	image.src = extractRecipes.recipes[0].image
 	image.alt = "Image of Recipe"
-	image.classList.add("card-img-top", 'shadow', 'card-bg-color', 'w-100')
-	imgDiv.classList.add('flex', 'justify-content-center')
-	const recipeCardBody = document.createElement('div')
+	image.classList.add('shadow', 'card-bg-color', 'w-100')
+	imgDiv.classList.add('flex', 'justify-content-center',)
+	const divUnderImgContainer = document.createElement('div')
+	const divUnderImg = document.createElement('div')
+	const divUnderImg2 = document.createElement('div')
 	const h3 = document.createElement('h3')
-	h3.classList.add('card-title', 'text-center')
+	h3.classList.add('card-title', 'text-center', 'm-4')
 	h3.textContent = extractRecipes.recipes[0].title
-	recipeCardBody.classList.add('card-body', 'loading-bg', 'm-0', 'shadow')
-	recipeCardBody.id = "flex-recipe"
+	divUnderImgContainer.classList.add('mt-2', 'container-recipe')
+	divUnderImg.classList.add('loading-bg', 'mt-3', "col-lg-5", 'col-sm-12', 'recipe')
+	divUnderImgContainer.id = "imgDivContainer"
+	divUnderImg.id = "flex-recipe"
+	divUnderImg2.id = "containerForH3"
+	divUnderImg2.classList.add('col-lg-5', 'col-sm-12')
 	nutritionURL += extractRecipes.recipes[0].title
 	if (nutritionURL.indexOf('&')) {
 		originalString = extractRecipes.recipes[0].title
@@ -198,9 +209,10 @@ function renderRecipeIngredientPage(data) {
 
 	const h2R = document.createElement('h2')
 	h2R.textContent = "Here is your recipe"
-	h2R.classList.add('pt-1', 'pb-2', 'mb-1', 'loading-bg', 'text-center', 'shadow-sm')
-	ulForRecipeIngredientList.classList.add('list-group', 'shadow')
-	ulForRecipeIngredientList.appendChild(h2R)
+	h2R.classList.add('mb-4', 'loading-bg', 'text-center')
+	ulForRecipeIngredientList.classList.add('list-group')
+	ulForInstructionList.appendChild(h2R)
+	ulForInstructionList.classList.add("padding", 'pt-1')
 	const ul1 = document.createElement('ul')
 	ul1.id = "list"
 	ul1.innerText = " "
@@ -214,7 +226,7 @@ function renderRecipeIngredientPage(data) {
 		const li = document.createElement('li')
 		li.textContent = pageInstructions[i]
 		li.classList.add('list-group-item')
-		ulForRecipeIngredientList.appendChild(li)
+		ulForInstructionList.appendChild(li)
 	}
 
 	main.classList.remove('flex')
@@ -232,14 +244,18 @@ function renderRecipeIngredientPage(data) {
 	buttonHome.classList.remove("hidden")
 	buttonNutrition.classList.remove("hidden")
 	newRecipe.classList.remove("hidden")
-	imgDiv1.classList.add('card')
 
+	imgDivContainer.appendChild(imgDiv1)
 	imgDivContainer.appendChild(imgDiv)
-	imgDiv.appendChild(imgDiv1)
 	imgDiv1.appendChild(image)
-	imgDiv1.appendChild(recipeCardBody)
-	recipeCardBody.appendChild(h3)
-	recipeCardBody.appendChild(ulForRecipeIngredientList)
+	imgDiv.appendChild(divUnderImg2)
+	imgDiv.appendChild(divUnderImg)
+	imgDiv.appendChild(divUnderImgContainer)
+	divUnderImgContainer.appendChild(divUnderImg2)
+	divUnderImgContainer.appendChild(divUnderImg)
+	divUnderImg2.appendChild(h3)
+	divUnderImg2.appendChild(ulForRecipeIngredientList)
+	divUnderImg.appendChild(ulForInstructionList)
 	h1.classList.remove('oops-height')
 	revealContentAfterLoading()
 	header.scrollIntoView();
