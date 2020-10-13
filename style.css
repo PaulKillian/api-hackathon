@@ -38,7 +38,14 @@ h3 {
 	border-width: 5px !important;
 }
 
+.border-t2 {
+	border-style: solid;
+	border-color: rgb(165, 159, 159);;
+	border-width: 5px !important;
+}
+
 .border-t,
+.border-t2,
 .loading-bg {
 	background-color: #fff4e8;
 }
@@ -93,9 +100,13 @@ button:hover {
 	padding-left: 1px;
 }
 
+.margin {
+	margin-top: 1.3rem;
+}
+
 .modal-contents {
   border: solid 2px black;
-	/* width: 800%; */
+	width: 800%;
 	height: 100vh;
 }
 
@@ -129,6 +140,20 @@ button:hover {
   .imgContainer {
     width: 77%
   }
+}
+
+@media only screen and (min-width: 1280px) {
+  .imgContainer {
+		display: flex;
+		width: 90%;
+		margin-right: 30px;
+	}
+	.border-t {
+		height: 100vh;
+	}
+	.margin-2 {
+		margin-right: 3rem;
+	}
 }
 
 @media only screen and (min-width: 1025px) {
