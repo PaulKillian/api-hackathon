@@ -151,6 +151,7 @@ function renderRecipeIngredientPage(data) {
 	imgDiv1.innerHTML = " "
 	imgContainer.innerHTML = " "
 	ulForRecipeIngredientList.innerHTML = " "
+
 	extractRecipes = data
 	if (extractRecipes.recipes[0].analyzedInstructions[0] === undefined) {
 		noRecipe()
@@ -161,35 +162,8 @@ function renderRecipeIngredientPage(data) {
 		pageIngredients.push(arrayIngredients[i].name)
 	}
 	for (let i = 0; i < arrayInstructions.length; i++) {
-			pageInstructions.push(arrayInstructions[i].step)
+		pageInstructions.push(arrayInstructions[i].step)
 	}
-
-	const ul1 = document.createElement('ul')
-	ul1.id = "list"
-	ul1.innerText = " "
-	if (arrayInstructions[0].step === "Go to my blog for full instructions: http://gourmandelle.com/chocolate-chip-coconut-muffins/") {
-		let a = document.createElement('a')
-		a.textContent = "Go to blog for full instructions"
-		a.href = "http://gourmandelle.com/chocolate-chip-coconut-muffins/"
-		ulForRecipeIngredientList.appendChild(a)
-  }
-	for (let i = 0; i < pageInstructions.length; i++) {
-			const li = document.createElement('li')
-			li.textContent = pageInstructions[i]
-			li.classList.add('list-group-item')
-			ulForRecipeIngredientList.appendChild(li)
-		}
-
-	const h2R = document.createElement('h2')
-	main.classList.remove('flex')
-	main.classList.add('d-flex')
-	h3R.classList.add('pt-2')
-	h2I.textContent = " "
-	h2I.classList.add('w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
-	h2R.textContent = "Here are your ingredients"
-	h2R.classList.add('pt-1', 'pb-2', 'mb-1', 'loading-bg', 'text-center', 'shadow-sm')
-	ulForRecipeIngredientList.classList.add('list-group', 'shadow')
-	ulForRecipeIngredientList.appendChild(h2R)
 
 	for (let i = 0; i < pageIngredients.length; i++) {
 		const li = document.createElement('li')
@@ -208,7 +182,8 @@ function renderRecipeIngredientPage(data) {
 	const h3 = document.createElement('h3')
 	h3.classList.add('card-title', 'text-center')
 	h3.textContent = extractRecipes.recipes[0].title
-	recipeCardBody.classList.add('card-body', 'loading-bg', 'm-0', 'shadow',)
+	recipeCardBody.classList.add('card-body', 'loading-bg', 'm-0', 'shadow')
+	recipeCardBody.id = "flex-recipe"
 	nutritionURL += extractRecipes.recipes[0].title
 	if (nutritionURL.indexOf('&')) {
 		originalString = extractRecipes.recipes[0].title
@@ -220,6 +195,33 @@ function renderRecipeIngredientPage(data) {
 		string6 = string5.replace(',', '')
 		nutritionURL = `https://trackapi.nutritionix.com/v2/search/instant?query=${string6}`
 	}
+
+	const h2R = document.createElement('h2')
+	h2R.textContent = "Here is your recipe"
+	h2R.classList.add('pt-1', 'pb-2', 'mb-1', 'loading-bg', 'text-center', 'shadow-sm')
+	ulForRecipeIngredientList.classList.add('list-group', 'shadow')
+	ulForRecipeIngredientList.appendChild(h2R)
+	const ul1 = document.createElement('ul')
+	ul1.id = "list"
+	ul1.innerText = " "
+	if (arrayInstructions[0].step === "Go to my blog for full instructions: http://gourmandelle.com/chocolate-chip-coconut-muffins/") {
+		let a = document.createElement('a')
+		a.textContent = "Go to blog for full instructions"
+		a.href = "http://gourmandelle.com/chocolate-chip-coconut-muffins/"
+		ulForRecipeIngredientList.appendChild(a)
+	}
+	for (let i = 0; i < pageInstructions.length; i++) {
+		const li = document.createElement('li')
+		li.textContent = pageInstructions[i]
+		li.classList.add('list-group-item')
+		ulForRecipeIngredientList.appendChild(li)
+	}
+
+	main.classList.remove('flex')
+	main.classList.add('d-flex')
+	h3R.classList.add('pt-2')
+	h2I.textContent = " "
+	h2I.classList.add('w-75', 'flex', 'justify-content-center', 'mb-0', 'pb-1')
 
 	spinner.classList.add('invisible')
 	container.classList.remove('oops-height')
@@ -236,8 +238,8 @@ function renderRecipeIngredientPage(data) {
 	imgDiv.appendChild(imgDiv1)
 	imgDiv1.appendChild(image)
 	imgDiv1.appendChild(recipeCardBody)
-	imgDiv1.appendChild(ulForRecipeIngredientList)
 	recipeCardBody.appendChild(h3)
+	recipeCardBody.appendChild(ulForRecipeIngredientList)
 	h1.classList.remove('oops-height')
 	revealContentAfterLoading()
 	header.scrollIntoView();

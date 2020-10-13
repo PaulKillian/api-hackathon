@@ -1,68 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css2?family=Amita:wght@700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Amita&family=Playfair+Display&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="style.css">
-</head>
-<body>
-	<div id="container" class="border-t b-image">
-		<div id="header" class="col-12">
-			<h1 id="headerH2" class="row d-flex justify-content-center">INSTANT RECIPE</h1>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Instant Recipe</title>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+			crossorigin="anonymous"
+		/>
+		<link href="https://fonts.googleapis.com/css2?family=Amita:wght@700&display=swap" rel="stylesheet" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Amita&family=Playfair+Display&display=swap"
+			rel="stylesheet"
+		/>
+		<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div id="container" class="border-t b-image pb-5">
+			<div id="header" class="col-12">
+				<h1 id="headerH2" class="row d-flex justify-content-center">INSTANT RECIPE</h1>
+				<div class="header-border"></div>
+				<div class="d-flex justify-content-center">
+					<button id="button-home" class="btn shadow-sm m-3 p-3 text-light bg-color hidden">Home</button>
+					<button id="button-nutrition" class="btn shadow-sm m-3 p-3 text-light bg-color hidden">
+						Nutrition
+					</button>
+					<button id="new-recipe" class="btn shadow-sm m-3 p-3 text-light bg-color hidden">New Recipe</button>
+				</div>
+				<section id="choose" class="container d-flex justify-content-center background text-black">
+					<h3 id="choose-recipe" class="text-center col-6-sm row"></h3>
+				</section>
+				<div id="recipe-container" class="row d-flex justify-content-center">
+					<div id="img-div" class="imgContainer imgContainer1">
+						<div id="img-div1"></div>
+					</div>
+				</div>
+				<section class="container d-flex justify-content-center text-black">
+					<h2 id="here-is-recipe" class="text-center mt-3 mb-1 row">Choose Your Recipe</h2>
+				</section>
+				<main class="container flex justify-content-center text-black borders">
+					<h2 id="h2R" class="text-center"></h2>
+					<div>
+					<ul id="recipe-ingredient-list"></ul>
+					</div>
+					<div>
+					<ul id="instruction-list"></ul>
+					</div>
+				</main>
+				<div id="homepage-container" class="d-flex justify-content-center">
+					<div id="img-row" class="imgContainer imgContainer1 flex justify-content-center"></div>
+				</div>
+				<div class="col-12 d-flex flex-column justify-content-center modal-overlay modal-b-reveal">
+					<div id="modal-content" class="modal-content w-50 text-center hidden">
+						<ul id="modal-list"></ul>
+						<button id="modal-button" class="shadow m-3 p-3 hidden card-bg-color">Go Back</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="oops" class="border-t justify-content-center text-center d-flex-wrap align-items-center hidden">
+			<svg
+				width="20em"
+				height="20em"
+				viewBox="0 0 16 16"
+				class="bi bi-egg-fried mt-5"
+				fill="currentColor"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					fill-rule="evenodd"
+					d="M13.665 6.113a1 1 0 0 1-.667-.977L13 5a4 4 0 0 0-6.483-3.136 1 1 0 0 1-.8.2 4 4 0 0 0-3.693 6.61 1 1 0 0 1 .2 1 4 4 0 0 0 6.67 4.087 1 1 0 0 1 1.262-.152 2.5 2.5 0 0 0 3.715-2.905 1 1 0 0 1 .341-1.113 2.001 2.001 0 0 0-.547-3.478zM14 5c0 .057 0 .113-.003.17a3.001 3.001 0 0 1 .822 5.216 3.5 3.5 0 0 1-5.201 4.065 5 5 0 0 1-8.336-5.109A5 5 0 0 1 5.896 1.08 5 5 0 0 1 14 5z"
+				/>
+				<circle cx="8" cy="8" r="3" />
+			</svg>
+			<h1>I have egg on my face!<br />The recipe can't be found.</h1>
+			<button id="no-recipe" type="button" class="btn shadow mt-2 card-bg-color">Get New Recipe</button>
+		</div>
+		<div
+			id="loading-screen"
+			class="border-t loading-bg spinner-height hidden modal-b-reveal d-flex-wrap justify-content-center text-center"
+		>
+			<h1 id="spinner-text" class="row text-black d-flex justify-content-center">INSTANT RECIPE</h1>
 			<div class="header-border"></div>
-			<div class="d-flex justify-content-center">
-				<button id="button-home" class="btn shadow-sm m-3 p-3 text-light bg-color hidden">Home</button>
-				<button id="button-nutrition" class=" btn shadow-sm m-3 p-3 text-light bg-color hidden">Nutrition</button>
-				<button id="new-recipe" class="btn shadow-sm m-3 p-3 text-light bg-color hidden">New Recipe</button>
-			</div>
-		<section id="choose" class="container d-flex justify-content-center background text-black">
-			<h3 id="choose-recipe" class="text-center col-6-sm row"></h3>
-		</section>
-		<div id="recipe-container" class="row d-flex justify-content-center">
-			<div id="img-div" class="imgContainer imgContainer1">
-				<div id="img-div1"></div>
-			</div>
+			<div
+				class="spinner-border modal-b-reveal spinner-grow spinner-size text-dark invisible m-0"
+				role="status"
+			></div>
 		</div>
-		<section class="container d-flex justify-content-center text-black">
-			<h2 id="here-is-recipe" class="text-center mt-5 mb-1 row">Choose Your Recipe</h2>
-		</section>
-		<main class="container flex justify-content-center text-black borders">
-			<h2 id="h2R" class="text-center"></h2>
-			<ul id="recipe-ingredient-list"></ul>
-		</main>
-		<div id="homepage-container" class="d-flex justify-content-center">
-			<div id="img-row" class="imgContainer imgContainer1 flex justify-content-center"></div>
-		</div>
-		<div class="col-12 d-flex flex-column justify-content-center modal-overlay modal-b-reveal">
-			<div id="modal-content" class="modal-content w-50 text-center hidden">
-				<ul id="modal-list"></ul>
-				<button id="modal-button" class="shadow m-3 p-3 hidden card-bg-color">Go Back</button>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="oops" class="border-t justify-content-center text-center d-flex-wrap align-items-center hidden">
-	<svg width="20em" height="20em" viewBox="0 0 16 16" class="bi bi-egg-fried mt-5" fill="currentColor"
-		xmlns="http://www.w3.org/2000/svg">
-		<path fill-rule="evenodd"
-			d="M13.665 6.113a1 1 0 0 1-.667-.977L13 5a4 4 0 0 0-6.483-3.136 1 1 0 0 1-.8.2 4 4 0 0 0-3.693 6.61 1 1 0 0 1 .2 1 4 4 0 0 0 6.67 4.087 1 1 0 0 1 1.262-.152 2.5 2.5 0 0 0 3.715-2.905 1 1 0 0 1 .341-1.113 2.001 2.001 0 0 0-.547-3.478zM14 5c0 .057 0 .113-.003.17a3.001 3.001 0 0 1 .822 5.216 3.5 3.5 0 0 1-5.201 4.065 5 5 0 0 1-8.336-5.109A5 5 0 0 1 5.896 1.08 5 5 0 0 1 14 5z" />
-		<circle cx="8" cy="8" r="3" />
-	</svg>
-	<h1>I have egg on my face!<br>The recipe can't be found.</h1>
-	<button id="no-recipe" type="button" class="btn shadow mt-2 card-bg-color">Get New Recipe</button>
-</div>
-<div id="loading-screen" class="border-t loading-bg spinner-height hidden modal-b-reveal d-flex-wrap justify-content-center text-center">
-	<h1 id="spinner-text" class="row text-black d-flex justify-content-center">INSTANT RECIPE</h1>
-	<div class="header-border"></div>
-	<div class="spinner-border modal-b-reveal spinner-grow spinner-size text-dark invisible m-0" role="status"></div>
-</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
-	<script src="main.js"></script>
-</body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+		<script src="main.js"></script>
+	</body>
 </html>
