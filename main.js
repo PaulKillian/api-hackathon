@@ -46,12 +46,14 @@ container.addEventListener('click', handleEvent)
 
 
 function renderHomePage() {
+	container.classList.add('border-t')
+	container.classList.remove('border-t2')
 	imgDiv.innerHTML = " "
 	imgDiv1.innerHTML = " "
 	imgContainer.innerHTML = " "
 	imgRow.innerHTML = " "
 	const divRowOne = document.createElement('div')
-	divRowOne.classList.add('card', 'card-bg-color', 'shadow')
+	divRowOne.classList.add('card', 'card-bg-color', 'shadow', 'margin-2')
 	divRowOne.setAttribute("width", "10rem")
 	const pforRecipeImg1 = document.createElement('h3')
 	pforRecipeImg1.textContent = "Breakfast"
@@ -62,7 +64,7 @@ function renderHomePage() {
 	divRowTwo.classList.add("row", "justify-content-center")
 	const divRowThree = document.createElement('div')
 	divRowThree.setAttribute("width", "10rem")
-	divRowThree.classList.add("card", 'card-bg-color', 'shadow')
+	divRowThree.classList.add("card", 'card-bg-color', 'shadow', 'margin-2')
 	const pforRecipeImg2 = document.createElement('h3')
 	pforRecipeImg2.textContent = "Lunch"
 	pforRecipeImg2.classList.add('text-center')
@@ -71,7 +73,7 @@ function renderHomePage() {
 	const divRowFour = document.createElement('div')
 	divRowFour.classList.add("row", "justify-content-center")
 	const divRowFive = document.createElement('div')
-	divRowFive.classList.add("card", 'card-bg-color', 'shadow')
+	divRowFive.classList.add("card", 'card-bg-color', 'shadow', 'margin-2')
 	divRowFive.setAttribute("width", "10rem")
 	const pforRecipeImg3 = document.createElement('h3')
 	pforRecipeImg3.textContent = "Dinner"
@@ -149,6 +151,8 @@ function revealContentAfterLoading(){
 
 
 function renderRecipeIngredientPage(data) {
+	container.classList.remove('border-t')
+	container.classList.add('border-t2')
 	ulForInstructionList.innerHTML = ''
 	imgDiv.classList.remove('imgContainer', 'imgContainer1')
 	main.innerHTML = " "
@@ -170,6 +174,13 @@ function renderRecipeIngredientPage(data) {
 		pageInstructions.push(arrayInstructions[i].step)
 	}
 
+	const h2L = document.createElement('h2')
+	h2L.textContent = "Ingredients"
+	h2L.classList.add('mb-2', 'loading-bg', 'text-center')
+	ulForRecipeIngredientList.classList.add('list-group', 'margin')
+	ulForRecipeIngredientList.appendChild(h2L)
+	ulForInstructionList.classList.add("padding", 'pt-1')
+
 	for (let i = 0; i < pageIngredients.length; i++) {
 		const li = document.createElement('li')
 		li.textContent = pageIngredients[i]
@@ -187,7 +198,7 @@ function renderRecipeIngredientPage(data) {
 	const divUnderImg = document.createElement('div')
 	const divUnderImg2 = document.createElement('div')
 	const h3 = document.createElement('h3')
-	h3.classList.add('card-title', 'text-center', 'm-4')
+	h3.classList.add('card-title', 'text-center', 'mt-2')
 	h3.textContent = extractRecipes.recipes[0].title
 	divUnderImgContainer.classList.add('mt-2', 'container-recipe')
 	divUnderImg.classList.add('loading-bg', 'mt-3', "col-lg-5", 'col-sm-12', 'recipe')
@@ -208,9 +219,8 @@ function renderRecipeIngredientPage(data) {
 	}
 
 	const h2R = document.createElement('h2')
-	h2R.textContent = "Here is your recipe"
-	h2R.classList.add('mb-4', 'loading-bg', 'text-center')
-	ulForRecipeIngredientList.classList.add('list-group')
+	h2R.textContent = "Cooking Instructions"
+	h2R.classList.add('mb-2', 'loading-bg', 'text-center', 'mt-0')
 	ulForInstructionList.appendChild(h2R)
 	ulForInstructionList.classList.add("padding", 'pt-1')
 	const ul1 = document.createElement('ul')
@@ -253,7 +263,7 @@ function renderRecipeIngredientPage(data) {
 	imgDiv.appendChild(divUnderImgContainer)
 	divUnderImgContainer.appendChild(divUnderImg2)
 	divUnderImgContainer.appendChild(divUnderImg)
-	divUnderImg2.appendChild(h3)
+	imgDiv1.appendChild(h3)
 	divUnderImg2.appendChild(ulForRecipeIngredientList)
 	divUnderImg.appendChild(ulForInstructionList)
 	h1.classList.remove('oops-height')
